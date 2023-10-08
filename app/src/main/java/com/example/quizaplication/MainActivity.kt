@@ -3,12 +3,16 @@ package com.example.quizaplication
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,15 +37,32 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color =  MaterialTheme.colorScheme.background
                 ) {
-                   HomeScreen({})
+                   //HomeScreen({})
                 }
             }
         }
     }
 }
 
+
+val categories = listOf(
+    QuizCategory(1, "History"),
+    QuizCategory(2, "Math"),
+    QuizCategory(3, "Science"),
+    QuizCategory(4, "Programing"),
+    QuizCategory(5, "English"),
+    QuizCategory(6, "Norwegian"),
+    QuizCategory(7, "Biology"),
+    QuizCategory(8, "Chemistry"),
+    QuizCategory(9, "Data security"),
+    QuizCategory(10, "Mix"),
+    QuizCategory(11, "AI"),)
+
 @Composable
-fun HomeScreen(onQuizStartClick: () -> Unit
+fun HomeScreen(
+    categories: List<QuizCategory>,
+    onCategoryClick: (QuizCategory) -> Unit
+
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
@@ -56,21 +77,51 @@ fun HomeScreen(onQuizStartClick: () -> Unit
             ),
             modifier = Modifier.padding(bottom = 16.dp)
         )
-        Button(onClick = {onQuizStartClick()},
-            modifier = Modifier.padding(bottom = 16.dp)
-        ) {
-            Text(text = "Click to Start")
+        LazyColumn(modifier = Modifier.fillMaxWidth()) {
+            categories.forEach { category ->
+                item {
+                    CategoryItem(
+                        category = category,
+                        onCategoryClick = { onCategoryClick(category) }
+                    )
+                }
+            }
         }
 
     }
-
 }
+
+@Composable
+fun CategoryItem(
+    category: QuizCategory,
+    onCategoryClick: (QuizCategory) -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .clickable { onCategoryClick(category) }
+    ) {
+        Text(
+            text = category.name,
+            modifier = Modifier
+                .padding(16.dp)
+                .wrapContentSize(),
+            style = TextStyle(fontSize = 18.sp)
+        )
+    }
+}
+
+
 
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
     QuizAplicationTheme {
-        HomeScreen({})
+        HomeScreen(
+            categories = categories,
+            onCategoryClick = {}
+        )
 
     }
 }
