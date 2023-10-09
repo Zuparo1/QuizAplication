@@ -37,7 +37,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color =  MaterialTheme.colorScheme.background
                 ) {
-                   //HomeScreen({})
+                    HomeScreen(
+                        categories = categories,
+                        onCategoryClick = {}
+                    )
                 }
             }
         }
@@ -69,9 +72,10 @@ fun HomeScreen(
         .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Welcome to Quiz",
+        TopNavBar()
+        Text(text = "Choose Category",
             style = TextStyle(
-                fontSize = 24.sp,
+                fontSize = 46.sp,
                 color = Color.Black,
                 fontWeight = FontWeight.Bold
             ),
