@@ -28,7 +28,8 @@ import com.example.quizaplication.TopNavBar
 
 @Composable
 fun HomeScreen(
-    onCategoryClick: (QuizCategory) -> Unit
+    //onCategoryClick: (QuizCategory) -> Unit
+    //navigateToCategory: (String) -> Unit
 
 ) {
     Column(modifier = Modifier
@@ -62,7 +63,8 @@ fun HomeScreen(
                 item {
                     CategoryItem(
                         category = category,
-                        onCategoryClick = { onCategoryClick(category) }
+                        //onCategoryClick = { onCategoryClick(category) }
+                        //navigateToCategory = navigateToCategory //ny
                     )
                 }
             }
@@ -74,7 +76,8 @@ fun HomeScreen(
 @Composable
 fun CategoryItem(
     category: QuizCategory,
-    onCategoryClick: (QuizCategory) -> Unit
+    //onCategoryClick: (QuizCategory) -> Unit
+    //navigateToCategory: (String) -> Unit
 ) {
     val categoryColors = listOf(
         Color(0xFFECEFF1),
@@ -88,8 +91,9 @@ fun CategoryItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onCategoryClick(category) },
-        elevation = CardDefaults.cardElevation(
+            //.clickable { onCategoryClick(category) },
+         //   .clickable { navigateToCategory(category.name)}, //ny
+        ,elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
         ),
         colors = CardDefaults.cardColors(

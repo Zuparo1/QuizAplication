@@ -25,11 +25,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.quizaplication.screens.HomeScreen
+import com.example.quizaplication.screens.RandomTestScreen
 import com.example.quizaplication.ui.theme.QuizAplicationTheme
 
 
 class MainActivity : ComponentActivity() {
+    lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -39,9 +47,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color =  MaterialTheme.colorScheme.background
                 ) {
-                    HomeScreen(
-                        onCategoryClick = {}
-                    )
+                    //HomeScreen(
+                        //onCategoryClick = {}
+                   // )
+                    navController = rememberNavController()
+                    SetUpNavGraph(navController = navController)
                 }
             }
         }
@@ -50,16 +60,34 @@ class MainActivity : ComponentActivity() {
 
 
 
-
+@Composable
+fun Navigation(
+    // navController : NavHostController = rememberNavController(),
+     startDestination: String = "home"
+){
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = startDestination){
+       // composable("home") {HomeScreen(navController::navigate)}
+        composable("test") {RandomTestScreen()}
+    }
+}
 
 
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
+    lateinit var navController: NavHostController
     QuizAplicationTheme {
-        HomeScreen(
-            onCategoryClick = {}
-        )
+       /*HomeScreen(
+            navController::navigate
+           // onCategoryClick = {}
+        )*/
+
+        //Navigation()
+        navController = rememberNavController()
+        SetUpNavGraph(navController = navController)
+
+
 
     }
 }
