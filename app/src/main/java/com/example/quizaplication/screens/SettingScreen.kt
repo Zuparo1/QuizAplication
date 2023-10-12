@@ -17,14 +17,14 @@ import androidx.navigation.NavController
 import com.example.quizaplication.navigation.TopNavBar
 
 @Composable
-fun RandomTestScreen(navController: NavController) {
+fun SettingScreen(navController: NavController) {
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally) {
         TopNavBar(navController)
-        Text(text = "TEST SCREEN",
+        Text(text = "Settings",
             style = TextStyle(
                 fontSize = 46.sp,
                 color = Color.Black,

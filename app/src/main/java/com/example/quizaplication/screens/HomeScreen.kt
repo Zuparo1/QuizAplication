@@ -36,7 +36,7 @@ fun HomeScreen(
         .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        TopNavBar()
+        TopNavBar(navController)
         Text(text = "Choose Category",
             style = TextStyle(
                 fontSize = 46.sp,

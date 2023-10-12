@@ -15,24 +15,26 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopNavBar() {
+fun TopNavBar(navController: NavController) {
     Column {
         TopAppBar(
             title = {
                 Text("Quiz-App")
             },
             navigationIcon = {
-                IconButton(onClick = {/* Do Something*/ }) {
+                IconButton(onClick = {navController.popBackStack()}) {
                     Icon(Icons.Filled.ArrowBack, null)
                 }
             }, actions = {
                /* IconButton(onClick = {/* Do Something*/ }) {
                     Icon(Icons.Filled.Share, null)
                 }*/
-                IconButton(onClick = {/* Do Something*/ }) {
+                IconButton(onClick = {navController
+                    .navigate(route = Screen.Setting.route) }) {
                     Icon(Icons.Filled.Settings, null)
                 }
             }

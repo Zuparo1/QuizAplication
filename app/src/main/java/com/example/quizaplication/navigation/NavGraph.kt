@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.quizaplication.screens.HomeScreen
 import com.example.quizaplication.screens.RandomTestScreen
+import com.example.quizaplication.screens.SettingScreen
 
 @Composable
 fun SetUpNavGraph (navController : NavHostController){
@@ -14,14 +15,18 @@ fun SetUpNavGraph (navController : NavHostController){
         composable(
             route = Screen.Home.route
         ){
-            HomeScreen(navController)
+            HomeScreen(navController = navController)
         }
         composable(
             route = Screen.Random.route
         ){
-            RandomTestScreen()
+            RandomTestScreen(navController = navController)
         }
-
+        composable(
+            route = Screen.Setting.route
+        ){
+            SettingScreen(navController = navController)
+        }
 
     }
 }
