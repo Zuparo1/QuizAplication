@@ -65,7 +65,13 @@ fun CategoryItem(
     category: QuizCategory,
     onCategoryClick: (QuizCategory) -> Unit
 ) {
-    val categoryColors = listOf(Color.Blue, Color.Red, Color.Green, Color.Yellow)
+    val categoryColors = listOf(
+        Color(0xFFECEFF1),
+        Color(0xFFFAF3E0),
+        Color(0xFFF1FAEE),
+        Color(0xFFE6E6E6),
+        Color(0xFFD8D0C0)
+    )
     val categoryColor = categoryColors[category.id % categoryColors.size]
 
 
@@ -76,6 +82,9 @@ fun CategoryItem(
             .clickable { onCategoryClick(category) },
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = categoryColor
         )
     ) {
         Text(
