@@ -28,7 +28,6 @@ import com.example.quizaplication.TopNavBar
 
 @Composable
 fun HomeScreen(
-    categories: List<QuizCategory>,
     onCategoryClick: (QuizCategory) -> Unit
 
 ) {
@@ -47,6 +46,18 @@ fun HomeScreen(
             modifier = Modifier.padding(bottom = 16.dp)
         )
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
+            val categories = listOf(
+                QuizCategory(1, "History"),
+                QuizCategory(2, "Math"),
+                QuizCategory(3, "Science"),
+                QuizCategory(4, "Programing"),
+                QuizCategory(5, "English"),
+                QuizCategory(6, "Norwegian"),
+                QuizCategory(7, "Biology"),
+                QuizCategory(8, "Chemistry"),
+                QuizCategory(9, "Data security"),
+                QuizCategory(10, "Mix"),
+                QuizCategory(11, "AI"),)
             categories.forEach { category ->
                 item {
                     CategoryItem(
@@ -73,8 +84,6 @@ fun CategoryItem(
         Color(0xFFD8D0C0)
     )
     val categoryColor = categoryColors[category.id % categoryColors.size]
-
-
     Card(
         modifier = Modifier
             .fillMaxWidth()

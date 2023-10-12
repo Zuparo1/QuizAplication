@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.example.quizaplication.screens.HomeScreen
 import com.example.quizaplication.ui.theme.QuizAplicationTheme
 
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,6 @@ class MainActivity : ComponentActivity() {
                     color =  MaterialTheme.colorScheme.background
                 ) {
                     HomeScreen(
-                        categories = categories,
                         onCategoryClick = {}
                     )
                 }
@@ -48,19 +48,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-val categories = listOf(
-    QuizCategory(1, "History"),
-    QuizCategory(2, "Math"),
-    QuizCategory(3, "Science"),
-    QuizCategory(4, "Programing"),
-    QuizCategory(5, "English"),
-    QuizCategory(6, "Norwegian"),
-    QuizCategory(7, "Biology"),
-    QuizCategory(8, "Chemistry"),
-    QuizCategory(9, "Data security"),
-    QuizCategory(10, "Mix"),
-    QuizCategory(11, "AI"),)
 
 
 
@@ -71,7 +58,6 @@ val categories = listOf(
 fun HomeScreenPreview() {
     QuizAplicationTheme {
         HomeScreen(
-            categories = categories,
             onCategoryClick = {}
         )
 
