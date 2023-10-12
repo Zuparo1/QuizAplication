@@ -21,20 +21,17 @@ import androidx.compose.ui.unit.dp
 fun TopNavBar() {
     Column {
         TopAppBar(
-            //elevation = 4.dp,
             title = {
                 Text("Quiz-App")
             },
-            //colors = TopAppBarColors,
-            //backgroundColor =  MaterialTheme.colors.primarySurface,
             navigationIcon = {
                 IconButton(onClick = {/* Do Something*/ }) {
                     Icon(Icons.Filled.ArrowBack, null)
                 }
             }, actions = {
-                IconButton(onClick = {/* Do Something*/ }) {
+               /* IconButton(onClick = {/* Do Something*/ }) {
                     Icon(Icons.Filled.Share, null)
-                }
+                }*/
                 IconButton(onClick = {/* Do Something*/ }) {
                     Icon(Icons.Filled.Settings, null)
                 }
