@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.quizaplication.screens.HomeScreen
 import com.example.quizaplication.ui.theme.QuizAplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -61,60 +62,7 @@ val categories = listOf(
     QuizCategory(10, "Mix"),
     QuizCategory(11, "AI"),)
 
-@Composable
-fun HomeScreen(
-    categories: List<QuizCategory>,
-    onCategoryClick: (QuizCategory) -> Unit
 
-) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        TopNavBar()
-        Text(text = "Choose Category",
-            style = TextStyle(
-                fontSize = 46.sp,
-                color = Color.Black,
-                fontWeight = FontWeight.Bold
-            ),
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-        LazyColumn(modifier = Modifier.fillMaxWidth()) {
-            categories.forEach { category ->
-                item {
-                    CategoryItem(
-                        category = category,
-                        onCategoryClick = { onCategoryClick(category) }
-                    )
-                }
-            }
-        }
-
-    }
-}
-
-@Composable
-fun CategoryItem(
-    category: QuizCategory,
-    onCategoryClick: (QuizCategory) -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .clickable { onCategoryClick(category) }
-    ) {
-        Text(
-            text = category.name,
-            modifier = Modifier
-                .padding(16.dp)
-                .wrapContentSize(),
-            style = TextStyle(fontSize = 18.sp)
-        )
-    }
-}
 
 
 
