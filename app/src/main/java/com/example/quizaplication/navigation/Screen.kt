@@ -1,4 +1,4 @@
-package com.example.quizaplication
+package com.example.quizaplication.navigation
 
 sealed class Screen(val route : String){
     object Home: Screen(route = "HomeScreen")

@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.quizaplication.navigation.SetUpNavGraph
 import com.example.quizaplication.ui.theme.QuizAplicationTheme
 
 

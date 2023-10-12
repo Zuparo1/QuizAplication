@@ -1,4 +1,4 @@
-package com.example.quizaplication
+package com.example.quizaplication.navigation
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons

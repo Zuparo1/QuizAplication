@@ -1,4 +1,4 @@
-package com.example.quizaplication
+package com.example.quizaplication.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +20,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.quizaplication.QuizCategory
+import com.example.quizaplication.navigation.Screen
+import com.example.quizaplication.navigation.TopNavBar
 
 @Composable
 fun HomeScreen(
