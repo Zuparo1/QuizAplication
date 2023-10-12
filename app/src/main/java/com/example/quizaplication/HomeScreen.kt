@@ -1,18 +1,14 @@
-package com.example.quizaplication.screens
+package com.example.quizaplication
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.AlertDialogDefaults.containerColor
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,13 +19,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.quizaplication.QuizCategory
-import com.example.quizaplication.TopNavBar
+import androidx.navigation.NavController
 
 @Composable
 fun HomeScreen(
     //onCategoryClick: (QuizCategory) -> Unit
     //navigateToCategory: (String) -> Unit
+    navController: NavController
 
 ) {
     Column(modifier = Modifier
@@ -63,6 +59,7 @@ fun HomeScreen(
                 item {
                     CategoryItem(
                         category = category,
+                        navController
                         //onCategoryClick = { onCategoryClick(category) }
                         //navigateToCategory = navigateToCategory //ny
                     )
@@ -76,6 +73,7 @@ fun HomeScreen(
 @Composable
 fun CategoryItem(
     category: QuizCategory,
+    navController: NavController
     //onCategoryClick: (QuizCategory) -> Unit
     //navigateToCategory: (String) -> Unit
 ) {
@@ -91,8 +89,7 @@ fun CategoryItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            //.clickable { onCategoryClick(category) },
-         //   .clickable { navigateToCategory(category.name)}, //ny
+               .clickable {navController.navigate(route = Screen.Random.route)} //ny
         ,elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
         ),
