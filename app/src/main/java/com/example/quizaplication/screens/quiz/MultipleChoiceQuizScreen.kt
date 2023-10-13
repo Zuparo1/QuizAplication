@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.quizaplication.screens.quiz.questions.quizQuestions
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -127,7 +126,7 @@ fun MultipleChoiceQuizScreen(
                         .align(Alignment.CenterHorizontally)
                         .padding(16.dp)
                         .background(buttonBackgroundColor),
-                    enabled = selectedAnswer != null // Enable only when an answer is selected
+                    enabled = selectedAnswer != null
                 ) {
                     Text(text = "Next Question")
                 }
