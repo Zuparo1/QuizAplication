@@ -94,7 +94,7 @@ fun MultipleChoiceQuizScreen(
                                 color = if (selectedAnswer == option) {
                                     Color.Magenta
                                 } else {
-                                    Color.Gray
+                                    Color.Transparent
                                 }
                             ),
                     ) {
