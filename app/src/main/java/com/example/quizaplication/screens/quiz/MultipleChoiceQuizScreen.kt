@@ -128,7 +128,7 @@ fun MultipleChoiceQuizScreen(
                         .background(buttonBackgroundColor),
                     enabled = selectedAnswer != null
                 ) {
-                    Text(text = "Next Question")
+                    Text(text = "Submit answer and next question")
                 }
 
 
