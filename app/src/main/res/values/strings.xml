@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">QuizAplication</string>
+    <string name="email_error">error while validation email</string>
+    <string name="password_error">error while validating password</string>
+    <string name="password_check_error">error while validating that passwords match</string>
+    <string name="could_not_create_account">error while creating account</string>
+    <string name="password">Password</string>
+    <string name="password_check">Repeat password</string>
 </resources>
