@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.quizaplication.screens.quiz.questions.quizQuestions
+import com.example.quizaplication.model.questions.quizQuestions
 import androidx.compose.material3.Button
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
