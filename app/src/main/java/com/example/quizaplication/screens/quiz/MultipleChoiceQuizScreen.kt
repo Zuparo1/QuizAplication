@@ -90,6 +90,13 @@ fun MultipleChoiceQuizScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp)
+                            .background(
+                                color = if (selectedAnswer == option) {
+                                    Color.Magenta
+                                } else {
+                                    Color.Gray
+                                }
+                            ),
                     ) {
                         Text(text = option)
                     }
