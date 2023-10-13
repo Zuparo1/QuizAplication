@@ -35,41 +35,12 @@ class MainActivity : ComponentActivity() {
 }
 
 
-//Shows the Multiple Choice Quiz
-/*class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            QuizAplicationTheme {
-                MultipleChoiceQuizScreen(navController = rememberNavController())
-            }
-        }
-    }
-}*/
-
-
-
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
     lateinit var navController: NavHostController
     navController = rememberNavController()
+    SetUpNavGraph(navController = navController)
 
-
-    //HomeScreen(navController = navController )
-    /*
-    lateinit var navController: NavHostController
-
-    QuizAplicationTheme {
-       /*HomeScreen(
-            navController::navigate
-           // onCategoryClick = {}
-        )*/
-
-        //Navigation()
-        navController = rememberNavController()
-        SetUpNavGraph(navController = navController)
-    }
-   */
 }
 

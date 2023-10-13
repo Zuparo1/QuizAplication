@@ -26,8 +26,6 @@ import com.example.quizaplication.navigation.TopNavBar
 
 @Composable
 fun QuizThemeScreen(
-    //onCategoryClick: (QuizCategory) -> Unit
-    //navigateToCategory: (String) -> Unit
     navController: NavController
 
 ) {
