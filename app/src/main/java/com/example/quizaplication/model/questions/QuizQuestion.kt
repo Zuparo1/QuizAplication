@@ -1,4 +1,4 @@
-package com.example.quizaplication.screens.quiz.questions
+package com.example.quizaplication.model.questions
 
 
 data class QuizQuestion(

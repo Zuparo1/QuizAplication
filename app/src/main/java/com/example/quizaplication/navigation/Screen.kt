@@ -5,4 +5,5 @@ sealed class Screen(val route : String){
     object QuizTheme: Screen(route = "QuizThemeScreen")
     object Random: Screen(route = "RandomScreen")
     object Setting: Screen(route = "SettingScreen")
+    object MultipleChoiceQuiz : Screen(route = "MultipleChoiceQuizScreen")
 }

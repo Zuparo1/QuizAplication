@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.quizaplication.QuizCategory
+import com.example.quizaplication.model.QuizCategory
 import com.example.quizaplication.navigation.Screen
 import com.example.quizaplication.navigation.TopNavBar
 
@@ -63,8 +63,6 @@ fun QuizThemeScreen(
                     CategoryItem(
                         category = category,
                         navController
-                        //onCategoryClick = { onCategoryClick(category) }
-                        //navigateToCategory = navigateToCategory //ny
                     )
                 }
             }
@@ -77,8 +75,6 @@ fun QuizThemeScreen(
 fun CategoryItem(
     category: QuizCategory,
     navController: NavController
-    //onCategoryClick: (QuizCategory) -> Unit
-    //navigateToCategory: (String) -> Unit
 ) {
     val categoryColors = listOf(
         Color(0xFFECEFF1),
@@ -92,7 +88,7 @@ fun CategoryItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-               .clickable {navController.navigate(route = Screen.Random.route)} //ny
+               .clickable {navController.navigate(route = Screen.MultipleChoiceQuiz.route)} //ny
         ,elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
         ),
