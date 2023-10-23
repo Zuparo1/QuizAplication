@@ -1,4 +1,4 @@
-package com.example.quizaplication.screens.signup
+package com.example.quizaplication.screens.login
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
@@ -11,7 +11,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -21,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,10 +27,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.quizaplication.R
 
 @Composable
-fun SignUpScreen(
+fun LoginScreen(
     loggedIn: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: SignUpViewModel = hiltViewModel()
+    viewModel: LoginViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState
 
@@ -55,14 +53,13 @@ fun SignUpScreen(
 
         EmailField(uiState.email, viewModel::onEmailChange, fieldModifier)
         PasswordField(uiState.password, viewModel::onPasswordChange, fieldModifier)
-        PasswordCheckField(uiState.passwordCheck, viewModel::onPasswordCheckChange, fieldModifier)
 
         Button(
             onClick = { viewModel.onSignUpClick(loggedIn) },
             modifier = Modifier
                 .padding(16.dp, 8.dp),
         ) {
-            Text(text = "Register", fontSize = 16.sp)
+            Text(text = "Login", fontSize = 16.sp)
         }
     }
 }
@@ -76,29 +73,24 @@ fun EmailField(email: String, onNewValue: (String) -> Unit, modifier: Modifier =
         value = email,
         onValueChange = {onNewValue(it)},
         placeholder = { Text(text = "Email") },
-        leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = "Email")},
+        leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = "Email") },
     )
 }
 
 @Composable
 fun PasswordField(password: String, onNewValue: (String) -> Unit, modifier: Modifier = Modifier) {
-    PasswordField(password, R.string.password, onNewValue, Icons.Default.Lock, modifier)
-}
-
-@Composable
-fun PasswordCheckField(passwordCheck: String, onNewValue: (String) -> Unit, modifier: Modifier = Modifier) {
-    PasswordField(passwordCheck, R.string.password_check, onNewValue, Icons.Default.Refresh, modifier)
+    PasswordField(password, R.string.password, onNewValue, modifier)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun PasswordField(password: String, @StringRes placeholder: Int, onNewValue: (String) -> Unit, icon: ImageVector, modifier: Modifier = Modifier) {
+private fun PasswordField(password: String, @StringRes placeholder: Int, onNewValue: (String) -> Unit, modifier: Modifier = Modifier) {
     OutlinedTextField(
         modifier = modifier,
         value = password,
         onValueChange = { onNewValue(it) },
-        placeholder = {Text(text = stringResource(id = placeholder))},
-        leadingIcon = { Icon(imageVector = icon, contentDescription = "Lock") },
+        placeholder = { Text(text = stringResource(id = placeholder)) },
+        leadingIcon = { Icon(imageVector = Icons.Default.Lock, contentDescription = "Lock") },
         //keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        )
+    )
 }

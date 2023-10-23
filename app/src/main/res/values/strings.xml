@@ -6,4 +6,5 @@
     <string name="could_not_create_account">error while creating account</string>
     <string name="password">Password</string>
     <string name="password_check">Repeat password</string>
+    <string name="could_not_login">error while trying to login</string>
 </resources>
