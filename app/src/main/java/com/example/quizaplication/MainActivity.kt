@@ -14,8 +14,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.quizaplication.navigation.SetUpNavGraph
 import com.example.quizaplication.screens.quiz.MultipleChoiceQuizScreen
 import com.example.quizaplication.ui.theme.QuizAplicationTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         lateinit var navController: NavHostController
