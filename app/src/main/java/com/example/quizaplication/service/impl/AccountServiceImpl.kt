@@ -49,6 +49,7 @@ class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth) : A
          */
 
         auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { onResult(it.exception) }.await()
 
     }
 

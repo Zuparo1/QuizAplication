@@ -32,7 +32,7 @@ class LoginViewModel @Inject constructor(
         uiState.value = uiState.value.copy(password = newValue)
     }
 
-    fun onSignUpClick(loggedIn: () -> Unit) {
+    fun onLoginClick(loggedIn: () -> Unit) {
         if (!email.isValidEmail()) {
             uiState.value = uiState.value.copy(errorMessage = R.string.email_error)
             return
