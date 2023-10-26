@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -26,11 +27,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.quizaplication.R
+import com.example.quizaplication.navigation.TopNavBar
 
 @Composable
 fun SignUpScreen(
-    loggedIn: () -> Unit,
+    //loggedIn: () -> Unit, //COMMENT FOR NAV
+    navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: SignUpViewModel = hiltViewModel()
 ) {
@@ -39,30 +43,32 @@ fun SignUpScreen(
     val fieldModifier = Modifier
         .fillMaxWidth()
         .padding(16.dp, 4.dp)
-
-    Column (
-        modifier = modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        if (uiState.errorMessage !=0) {
-            Text(text = stringResource(id = uiState.errorMessage),
-                Modifier.padding(vertical = 8.dp))
-        }
-
-        EmailField(uiState.email, viewModel::onEmailChange, fieldModifier)
-        PasswordField(uiState.password, viewModel::onPasswordChange, fieldModifier)
-        PasswordCheckField(uiState.passwordCheck, viewModel::onPasswordCheckChange, fieldModifier)
-
-        Button(
-            onClick = { viewModel.onSignUpClick(loggedIn) },
-            modifier = Modifier
-                .padding(16.dp, 8.dp),
+    Column {
+        TopNavBar(navController)
+        Column (
+            modifier = modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Register", fontSize = 16.sp)
+            if (uiState.errorMessage !=0) {
+                Text(text = stringResource(id = uiState.errorMessage),
+                    Modifier.padding(vertical = 8.dp))
+            }
+
+            EmailField(uiState.email, viewModel::onEmailChange, fieldModifier)
+            PasswordField(uiState.password, viewModel::onPasswordChange, fieldModifier)
+            PasswordCheckField(uiState.passwordCheck, viewModel::onPasswordCheckChange, fieldModifier)
+
+            Button(
+                onClick = { /*viewModel.onSignUpClick(loggedIn)*/ }, //COMMENT FOR NAV
+                modifier = Modifier
+                    .padding(16.dp, 8.dp),
+            ) {
+                Text(text = "Register", fontSize = 16.sp)
+            }
         }
     }
 }

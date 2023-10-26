@@ -83,7 +83,7 @@ fun HomeScreen(navController: NavController) {
                     Text(text = "Start Quizzing")
                 }
                 Button(
-                        onClick = { navController.navigate(route = Screen.QuizTheme.route) },
+                        onClick = { navController.navigate(route = Screen.LogIn.route) },
                         modifier = Modifier
                                 .padding(8.dp)
                                 .fillMaxWidth(0.5f)
@@ -91,7 +91,7 @@ fun HomeScreen(navController: NavController) {
                     Text(text = "Log In")
                 }
                 Button(
-                        onClick = { navController.navigate(route = Screen.QuizTheme.route) },
+                        onClick = { navController.navigate(route = Screen.Register.route) },
                         modifier = Modifier
                                 .padding(8.dp)
                                 .fillMaxWidth(0.5f)
