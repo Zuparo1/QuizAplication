@@ -12,6 +12,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -74,6 +75,19 @@ fun SignUpScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+fun UsernameField(username: String, onNewValue: (String) -> Unit, modifier: Modifier = Modifier) {
+    OutlinedTextField(
+        singleLine = true,
+        modifier = modifier,
+        value = username,
+        onValueChange = {onNewValue(it)},
+        placeholder = { Text(text = "Username") },
+        leadingIcon = { Icon(imageVector = Icons.Default.Person, contentDescription = "Person") }
+        )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
 fun EmailField(email: String, onNewValue: (String) -> Unit, modifier: Modifier = Modifier) {
     OutlinedTextField(
         singleLine = true,
@@ -87,23 +101,23 @@ fun EmailField(email: String, onNewValue: (String) -> Unit, modifier: Modifier =
 
 @Composable
 fun PasswordField(password: String, onNewValue: (String) -> Unit, modifier: Modifier = Modifier) {
-    PasswordField(password, R.string.password, onNewValue, Icons.Default.Lock, modifier)
+    PasswordField(password, R.string.password, onNewValue, Icons.Default.Lock, "Lock", modifier)
 }
 
 @Composable
 fun PasswordCheckField(passwordCheck: String, onNewValue: (String) -> Unit, modifier: Modifier = Modifier) {
-    PasswordField(passwordCheck, R.string.password_check, onNewValue, Icons.Default.Refresh, modifier)
+    PasswordField(passwordCheck, R.string.password_check, onNewValue, Icons.Default.Refresh, "Refresh", modifier)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun PasswordField(password: String, @StringRes placeholder: Int, onNewValue: (String) -> Unit, icon: ImageVector, modifier: Modifier = Modifier) {
+private fun PasswordField(password: String, @StringRes placeholder: Int, onNewValue: (String) -> Unit, icon: ImageVector, iconDesc: String, modifier: Modifier = Modifier) {
     OutlinedTextField(
         modifier = modifier,
         value = password,
         onValueChange = { onNewValue(it) },
         placeholder = {Text(text = stringResource(id = placeholder))},
-        leadingIcon = { Icon(imageVector = icon, contentDescription = "Lock") },
+        leadingIcon = { Icon(imageVector = icon, contentDescription = iconDesc) },
         //keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         )
 }

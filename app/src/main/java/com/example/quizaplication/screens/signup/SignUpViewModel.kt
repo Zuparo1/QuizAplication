@@ -4,8 +4,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quizaplication.R
+import com.example.quizaplication.common.emailErrorSwitch
 import com.example.quizaplication.common.ext.isValidEmail
-import com.example.quizaplication.common.ext.isValidPassoword
+import com.example.quizaplication.common.ext.isValidPassword
+import com.example.quizaplication.common.ext.isValidUsername
+import com.example.quizaplication.common.passwordErrorSwitch
+import com.example.quizaplication.common.usernameErrorSwitch
 import com.example.quizaplication.service.AccountService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,11 +23,16 @@ class SignUpViewModel @Inject constructor(
     var uiState = mutableStateOf(SignUpState())
         private set
 
+    private val username
+        get() = uiState.value.username
     private val email
         get() = uiState.value.email
     private val password
         get() = uiState.value.password
 
+    fun onUsernameChange(newValue: String) {
+        uiState.value = uiState.value.copy(username = newValue)
+    }
     fun onEmailChange(newValue: String) {
         uiState.value = uiState.value.copy(email = newValue)
     }
@@ -35,11 +44,15 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun onSignUpClick(loggedIn: () -> Unit) {
-        if (!email.isValidEmail()) {
-            uiState.value = uiState.value.copy(errorMessage = R.string.email_error)
+        /*
+        if (username.isValidUsername() == 1 || username.isValidUsername() == 2 || username.isValidUsername() == 3 || username.isValidUsername() == 4) {
+            uiState.value = uiState.value.copy(errorMessage = usernameErrorSwitch(username.isValidUsername()))
+        } else */ if (email.isValidEmail() == 1 || email.isValidEmail() == 2) {
+            uiState.value = uiState.value.copy(errorMessage = emailErrorSwitch(email.isValidEmail()))
             return
-        } else if (!password.isValidPassoword()) {
-            uiState.value = uiState.value.copy(errorMessage = R.string.password_error)
+        } else if (password.isValidPassword() == 1 || password.isValidPassword() == 2 || password.isValidPassword() == 3
+            || password.isValidPassword() == 4 || password.isValidPassword() == 5) {
+            uiState.value = uiState.value.copy(errorMessage = passwordErrorSwitch(password.isValidPassword()))
             return
         } else if (password != uiState.value.passwordCheck) {
             uiState.value = uiState.value.copy(errorMessage = R.string.password_check_error)

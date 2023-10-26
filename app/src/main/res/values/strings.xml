@@ -1,10 +1,24 @@
 <resources>
     <string name="app_name">QuizAplication</string>
-    <string name="email_error">error while validation email</string>
-    <string name="password_error">error while validating password</string>
-    <string name="password_check_error">error while validating that passwords match</string>
     <string name="could_not_create_account">error while creating account</string>
     <string name="password">Password</string>
     <string name="password_check">Repeat password</string>
     <string name="could_not_login">error while trying to login</string>
+    <string name="lastName">Last name</string>
+    <string name="firstName">First name</string>
+    <string name="password_check_error">passwords don\'t match</string>
+    <string name="unknown_password_error">Unknown password error</string>
+    <string name="unknown_email_error">Unknown email password</string>
+    <string name="unknown_username_error">Unknown username error</string>
+    <string name="username_blank_error">Username cannot be blank</string>
+    <string name="username_contains_space_error">Username cannot contain space</string>
+    <string name="username_too_many_characters_error">Username must be less than 20 characters</string>
+    <string name="username_too_few_characters_error">Username must be at least 4 characters</string>
+    <string name="email_blank_error">Email cannot be blank</string>
+    <string name="email_wrong_format_error">Email must be valid format</string>
+    <string name="password_blank_error">Password cannot be blank</string>
+    <string name="password_too_many_characters_error">Password must be less than 25 characters</string>
+    <string name="password_too_few_characters_error">Password must be more than 6 characters</string>
+    <string name="password_invalid_format_error">Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character</string>
+    <string name="password_contains_space_error">Password cannot contain space</string>
 </resources>

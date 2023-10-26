@@ -4,8 +4,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quizaplication.R
+import com.example.quizaplication.common.emailErrorSwitch
 import com.example.quizaplication.common.ext.isValidEmail
-import com.example.quizaplication.common.ext.isValidPassoword
+import com.example.quizaplication.common.ext.isValidPassword
+import com.example.quizaplication.common.passwordErrorSwitch
 import com.example.quizaplication.screens.signup.SignUpState
 import com.example.quizaplication.service.AccountService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,11 +35,11 @@ class LoginViewModel @Inject constructor(
     }
 
     fun onLoginClick(loggedIn: () -> Unit) {
-        if (!email.isValidEmail()) {
-            uiState.value = uiState.value.copy(errorMessage = R.string.email_error)
+        if (email.isValidEmail() == 1 || email.isValidEmail() == 2) {
+            uiState.value = uiState.value.copy(errorMessage = emailErrorSwitch(email.isValidEmail()))
             return
-        } else if (!password.isValidPassoword()) {
-            uiState.value = uiState.value.copy(errorMessage = R.string.password_error)
+        } else if (password.isValidPassword() == 1 || password.isValidPassword() == 2 || password.isValidPassword() == 3 || password.isValidPassword() == 4) {
+            uiState.value = uiState.value.copy(errorMessage = passwordErrorSwitch(password.isValidPassword()))
             return
         }
 
