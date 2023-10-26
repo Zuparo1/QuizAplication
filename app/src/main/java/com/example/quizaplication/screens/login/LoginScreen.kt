@@ -30,7 +30,6 @@ import com.example.quizaplication.navigation.TopNavBar
 
 @Composable
 fun LoginScreen(
-    //loggedIn: () -> Unit, //COMMENT FOR NAV
     navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel = hiltViewModel()
@@ -60,7 +59,7 @@ fun LoginScreen(
             PasswordField(uiState.password, viewModel::onPasswordChange, fieldModifier)
 
             Button(
-                onClick = { /*viewModel.onSignUpClick(loggedIn)*/ }, //COMMENT FOR NAV
+                onClick = { viewModel.onLoginClick(loggedIn = { navController.popBackStack() }) },
                 modifier = Modifier
                     .padding(16.dp, 8.dp),
             ) {
