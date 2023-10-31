@@ -10,6 +10,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class QuizViewModel : ViewModel() {
+
   private val db = Firebase.firestore
   private val _quiz = MutableLiveData<Quiz>()
   val quiz: LiveData<Quiz> get() = _quiz
@@ -27,5 +28,10 @@ class QuizViewModel : ViewModel() {
       .addOnFailureListener { exception ->
         // Handle the error or set some default value
       }
+
+
   }
+  /*init {
+    fetchHistoryData()
+  }*/
 }

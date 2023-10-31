@@ -11,6 +11,7 @@ import com.example.quizaplication.screens.RandomTestScreen
 import com.example.quizaplication.screens.SettingScreen
 import com.example.quizaplication.screens.login.LoginScreen
 import com.example.quizaplication.screens.login.LoginState
+import com.example.quizaplication.screens.quiz.MultipleChoice
 import com.example.quizaplication.screens.quiz.MultipleChoiceQuizScreen
 import com.example.quizaplication.screens.signup.SignUpScreen
 
@@ -53,6 +54,11 @@ fun SetUpNavGraph (navController : NavHostController){
             route = Screen.Register.route
         ){
             SignUpScreen(navController = navController)
+        }
+        composable(
+            route = Screen.MultipleChoice.route
+        ){
+            MultipleChoice(navController = navController)
         }
 
     }

@@ -9,4 +9,5 @@ sealed class Screen(val route : String){
 
     object LogIn : Screen(route = "LoginScreen")
     object Register : Screen(route = "SignUpScreen")
+    object MultipleChoice : Screen(route = "MultipleChoiceQuizScreen")
 }

@@ -14,11 +14,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.quizaplication.navigation.SetUpNavGraph
 import com.example.quizaplication.screens.quiz.MultipleChoiceQuizScreen
 import com.example.quizaplication.ui.theme.QuizAplicationTheme
+import com.google.firebase.FirebaseApp
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        FirebaseApp.initializeApp(this)
         lateinit var navController: NavHostController
         super.onCreate(savedInstanceState)
         setContent {

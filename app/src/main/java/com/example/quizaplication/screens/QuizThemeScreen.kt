@@ -86,7 +86,7 @@ fun CategoryItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-               .clickable {navController.navigate(route = Screen.MultipleChoiceQuiz.route)} //ny
+               .clickable {navController.navigate(route = Screen.MultipleChoice.route)} //ny
         ,elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
         ),
