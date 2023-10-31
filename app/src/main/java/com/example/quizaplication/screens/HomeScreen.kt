@@ -18,6 +18,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -33,9 +38,14 @@ import androidx.navigation.compose.rememberNavController
 import com.example.quizaplication.R
 import com.example.quizaplication.navigation.Screen
 import com.example.quizaplication.navigation.SetUpNavGraph
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun HomeScreen(navController: NavController) {
+    val firerbaseAuth = FirebaseAuth.getInstance()
+    val user = firerbaseAuth.currentUser
+    var userState by remember { mutableStateOf(user)}
+
     val logoDrawable = painterResource(id = R.drawable.ic_launcher_foreground)
     val backgorundDrawable = painterResource(id = R.drawable.ic_launcher_background)
 
@@ -59,7 +69,8 @@ fun HomeScreen(navController: NavController) {
                     contentDescription = "Application Logo",
                     modifier = Modifier.size(120.dp))
             Text(
-                    text = "Welcome to the Quiz",
+                    text = if (user != null) "Welcome ${user.email}"
+                    else "Welcome to the Quiz",
                     style = TextStyle(
                             fontSize = 36.sp,
                             fontWeight = FontWeight.Bold,
@@ -82,21 +93,37 @@ fun HomeScreen(navController: NavController) {
                 ) {
                     Text(text = "Start Quizzing")
                 }
-                Button(
+                if (userState == null){
+                    Button(
                         onClick = { navController.navigate(route = Screen.LogIn.route) },
                         modifier = Modifier
-                                .padding(8.dp)
-                                .fillMaxWidth(0.5f)
-                ) {
-                    Text(text = "Log In")
-                }
-                Button(
+                            .padding(8.dp)
+                            .fillMaxWidth(0.5f)
+                    ) {
+                        Text(text = "Log In")
+                    }
+                    Button(
                         onClick = { navController.navigate(route = Screen.Register.route) },
                         modifier = Modifier
-                                .padding(8.dp)
-                                .fillMaxWidth(0.5f)
-                ) {
-                    Text(text = "Register")
+                            .padding(8.dp)
+                            .fillMaxWidth(0.5f)
+                    ) {
+                        Text(text = "Register")
+                    }
+                }
+                else{
+                    Button(
+                        onClick = {
+                            firerbaseAuth.signOut()
+                                  userState = null
+                                  },
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth(0.5f)
+                    ) {
+                        Text(text = "Log Out")
+                    }
+
                 }
             }
         }
