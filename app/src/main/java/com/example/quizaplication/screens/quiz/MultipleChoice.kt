@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
@@ -21,18 +22,18 @@ import com.example.quizaplication.model.Quiz
 
 @Composable
 fun MultipleChoice(navController: NavController) {
-    val viewModel: QuizViewModel = viewModel()
-    val quiz by viewModel.quiz.observeAsState(initial = null)
-    val quizQuestions = quiz?.questions?.values?.toList() ?: emptyList()
+    val viewModel: QuizViewModelNew = viewModel()
+    //val quiz by viewModel.quiz.observeAsState(initial = null)
+    //val quizQuestions = quiz?.questions?.values?.toList() ?: emptyList()
 
+    val quizQuestions by viewModel.quizQuestions.observeAsState(initial = emptyList())
 
     LaunchedEffect(Unit){
         viewModel.fetchHistoryData()
     }
-
-    Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(16.dp)) {
         quizQuestions.forEachIndexed { index, question ->
-            Text(text = "${index + 1}. ${question.prompt}")
+            Text(text = "${index + 1}. ${question.correct}")
             Spacer(modifier = Modifier.height(8.dp))
         }
     }

@@ -8,6 +8,7 @@ import com.example.quizaplication.model.QuizCategory
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 class QuizViewModel : ViewModel() {
 
@@ -16,7 +17,9 @@ class QuizViewModel : ViewModel() {
   val quiz: LiveData<Quiz> get() = _quiz
 
   fun fetchHistoryData() {
-    db.collection("MultipleChoiceQuiz").document("History").get()
+    val historyRef = db.collection("MultipleChoiceQuiz").document("History");
+
+    historyRef.get()
       .addOnSuccessListener { document ->
         if (document != null) {
           val quiz = document.toObject(Quiz::class.java)

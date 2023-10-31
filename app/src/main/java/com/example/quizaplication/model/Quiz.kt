@@ -1,8 +1,6 @@
 package com.example.quizaplication.model
 
-import com.google.firebase.firestore.DocumentId
-
-data class Quiz(
+data class Quiz @JvmOverloads constructor(
     //val name : String,
-    val questions : Map<String,Question>
+    val questions : Map<String,QuizQuestion>
 )
