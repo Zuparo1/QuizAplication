@@ -11,9 +11,9 @@ class QuizViewModel : ViewModel() {
     private val _quizQuestions = MutableLiveData<List<QuizQuestion>>()
     val quizQuestions: LiveData<List<QuizQuestion>> get() = _quizQuestions
 
-    fun fetchHistoryData() {
+    fun fetchQuizData(collectionPath : String, documentPath : String) {
         val db = Firebase.firestore
-        val historyRef = db.collection("MultipleChoiceQuiz").document("History")
+        val historyRef = db.collection(collectionPath).document(documentPath)
 
       historyRef.get().addOnSuccessListener { document ->
             val questionData = document["questions"] as? Map<String, Any>
