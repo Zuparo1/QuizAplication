@@ -10,7 +10,10 @@ import com.example.quizaplication.common.ext.isValidPassword
 import com.example.quizaplication.common.ext.isValidUsername
 import com.example.quizaplication.common.passwordErrorSwitch
 import com.example.quizaplication.common.usernameErrorSwitch
+import com.example.quizaplication.model.UserData
+import com.example.quizaplication.model.userDatas.MultipleChoice
 import com.example.quizaplication.service.AccountService
+import com.example.quizaplication.service.UserDataService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -19,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val accountService: AccountService,
+    private val userDataService: UserDataService,
 ) : ViewModel() {
     var uiState = mutableStateOf(SignUpState())
         private set
@@ -44,10 +48,9 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun onSignUpClick(loggedIn: () -> Unit) {
-        /*
         if (username.isValidUsername() == 1 || username.isValidUsername() == 2 || username.isValidUsername() == 3 || username.isValidUsername() == 4) {
             uiState.value = uiState.value.copy(errorMessage = usernameErrorSwitch(username.isValidUsername()))
-        } else */ if (email.isValidEmail() == 1 || email.isValidEmail() == 2) {
+        } else  if (email.isValidEmail() == 1 || email.isValidEmail() == 2) {
             uiState.value = uiState.value.copy(errorMessage = emailErrorSwitch(email.isValidEmail()))
             return
         } else if (password.isValidPassword() == 1 || password.isValidPassword() == 2 || password.isValidPassword() == 3
@@ -62,8 +65,12 @@ class SignUpViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 accountService.createAccount(email, password) { error ->
-                    if (error == null)
+                    if (error == null) {
+                        viewModelScope.launch {
+                            userDataService.createUserData(accountService.currentUserId, UserData(userName = username))
+                        }
                         loggedIn()
+                    }
                 }
             } catch(e: Exception) {
                 uiState.value = uiState.value.copy(errorMessage = R.string.could_not_create_account)

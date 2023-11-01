@@ -58,6 +58,7 @@ fun SignUpScreen(
                     Modifier.padding(vertical = 8.dp))
             }
 
+            UsernameField(uiState.username, viewModel::onUsernameChange, fieldModifier)
             EmailField(uiState.email, viewModel::onEmailChange, fieldModifier)
             PasswordField(uiState.password, viewModel::onPasswordChange, fieldModifier)
             PasswordCheckField(uiState.passwordCheck, viewModel::onPasswordCheckChange, fieldModifier)
