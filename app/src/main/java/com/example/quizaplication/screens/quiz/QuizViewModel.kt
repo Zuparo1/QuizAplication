@@ -3,38 +3,36 @@ package com.example.quizaplication.screens.quiz
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.quizaplication.model.Quiz
-import com.example.quizaplication.model.QuizCategory
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.quizaplication.model.QuizQuestion
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 class QuizViewModel : ViewModel() {
+    private val _quizQuestions = MutableLiveData<List<QuizQuestion>>()
+    val quizQuestions: LiveData<List<QuizQuestion>> get() = _quizQuestions
 
-  private val db = Firebase.firestore
-  private val _quiz = MutableLiveData<Quiz>()
-  val quiz: LiveData<Quiz> get() = _quiz
+    fun fetchHistoryData() {
+        val db = Firebase.firestore
+        val historyRef = db.collection("MultipleChoiceQuiz").document("History")
 
-  fun fetchHistoryData() {
-    val historyRef = db.collection("MultipleChoiceQuiz").document("History");
+      historyRef.get().addOnSuccessListener { document ->
+            val questionData = document["questions"] as? Map<String, Any>
+            val questionList = mutableListOf<QuizQuestion>()
 
-    historyRef.get()
-      .addOnSuccessListener { document ->
-        if (document != null) {
-          val quiz = document.toObject(Quiz::class.java)
-          _quiz.value = quiz
-        } else {
-          // Handle the error or set some default value
+            questionData?.forEach { (_, value) ->
+                val questionMap = value as? Map<String, Any>
+                val prompt = questionMap?.keys?.firstOrNull() { it != "correct" }?: ""
+                val options = mutableListOf<String>()
+                (questionMap?.get(prompt) as? List<*>)?.forEach { item ->
+                    item?.let {
+                        options.add(it.toString())
+                    }
+                }
+                        val optionsArray = options.toTypedArray()
+                        val correct = questionMap?.get("correct") as? String ?: ""
+                        questionList.add(QuizQuestion(prompt, optionsArray, correct))
+                    }
+                    _quizQuestions.postValue(questionList)
         }
-      }
-      .addOnFailureListener { exception ->
-        // Handle the error or set some default value
-      }
-
-
-  }
-  /*init {
-    fetchHistoryData()
-  }*/
+    }
 }
