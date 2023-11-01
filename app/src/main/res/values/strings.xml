@@ -18,7 +18,7 @@
     <string name="email_wrong_format_error">Email must be valid format</string>
     <string name="password_blank_error">Password cannot be blank</string>
     <string name="password_too_many_characters_error">Password must be less than 25 characters</string>
-    <string name="password_too_few_characters_error">Password must be more than 6 characters</string>
+    <string name="password_too_few_characters_error">Password must be more than 5 characters</string>
     <string name="password_invalid_format_error">Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character</string>
     <string name="password_contains_space_error">Password cannot contain space</string>
 </resources>

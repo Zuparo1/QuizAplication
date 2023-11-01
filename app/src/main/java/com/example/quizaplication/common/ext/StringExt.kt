@@ -44,7 +44,7 @@ fun String.isValidPassword(): Int {
         1 //Password must not be blank error
     } else if (this.contains(" ")) {
         4 //Password cannot contain space error
-    } else if (this.length <= minPasswordLength) {
+    } else if (this.length < minPasswordLength) {
         3 //Password is too short error
     } else if (this.length > maxPasswordLength) {
         4 //Password is too long error

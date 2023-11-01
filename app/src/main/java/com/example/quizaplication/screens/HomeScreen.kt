@@ -1,27 +1,23 @@
 package com.example.quizaplication.screens
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.sharp.Home
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -41,13 +38,21 @@ import com.example.quizaplication.navigation.SetUpNavGraph
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavController,
+               viewModel: HomeViewModel = hiltViewModel()) {
     val firerbaseAuth = FirebaseAuth.getInstance()
     val user = firerbaseAuth.currentUser
     var userState by remember { mutableStateOf(user)}
+    val homeState by viewModel.homeState
 
     val logoDrawable = painterResource(id = R.drawable.ic_launcher_foreground)
     val backgorundDrawable = painterResource(id = R.drawable.ic_launcher_background)
+
+    LaunchedEffect(Unit) {
+        if (user != null) {
+            viewModel.getUserName(user.uid)
+        }
+    }
 
     Box(
             modifier = Modifier.fillMaxSize()
@@ -59,8 +64,8 @@ fun HomeScreen(navController: NavController) {
         )
         Column (
                 modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
+                    .fillMaxSize()
+                    .padding(16.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
         ){
@@ -69,7 +74,7 @@ fun HomeScreen(navController: NavController) {
                     contentDescription = "Application Logo",
                     modifier = Modifier.size(120.dp))
             Text(
-                    text = if (user != null) "Welcome ${user.email}"
+                    text = if (user != null) "Welcome ${homeState.userName}"
                     else "Welcome to the Quiz",
                     style = TextStyle(
                             fontSize = 36.sp,
@@ -88,8 +93,8 @@ fun HomeScreen(navController: NavController) {
                 Button(
                         onClick = { navController.navigate(route = Screen.QuizTheme.route) },
                         modifier = Modifier
-                                .padding(8.dp)
-                                .fillMaxWidth(0.5f)
+                            .padding(8.dp)
+                            .fillMaxWidth(0.5f)
                 ) {
                     Text(text = "Start Quizzing")
                 }
