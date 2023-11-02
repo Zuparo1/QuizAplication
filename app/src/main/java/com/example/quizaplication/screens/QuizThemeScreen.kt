@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph
 import com.example.quizaplication.model.QuizCategory
 import com.example.quizaplication.navigation.Screen
 import com.example.quizaplication.navigation.TopNavBar
@@ -27,7 +28,6 @@ import com.example.quizaplication.navigation.TopNavBar
 @Composable
 fun QuizThemeScreen(
     navController: NavController
-
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
@@ -65,7 +65,6 @@ fun QuizThemeScreen(
                 }
             }
         }
-
     }
 }
 
@@ -86,7 +85,8 @@ fun CategoryItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-               .clickable {navController.navigate(route = Screen.MultipleChoiceQuiz.route)} //ny
+               .clickable {navController.navigate(route =
+               Screen.MultipleChoice.createRoute(category.name))} //new
         ,elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
         ),
