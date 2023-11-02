@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.sp
 import com.example.quizaplication.navigation.TopNavBar
 
 @Composable
-fun MultipleChoice(navController: NavController) {
+fun MultipleChoice(navController: NavController, documentPath : String) {
     var currentQuestionIndex by remember { mutableStateOf(0) }
     var selectedAnswer by remember { mutableStateOf<String?>(null) }
     var correctAnswers by remember { mutableStateOf(0) }
@@ -43,7 +43,7 @@ fun MultipleChoice(navController: NavController) {
     val viewModel: QuizViewModel = viewModel()
     val quizQuestions by viewModel.quizQuestions.observeAsState(initial = emptyList())
     LaunchedEffect(Unit){
-        viewModel.fetchQuizData("MultipleChoiceQuiz","History")
+        viewModel.fetchQuizData("MultipleChoiceQuiz",documentPath)
     }
 
     Column(
@@ -54,7 +54,7 @@ fun MultipleChoice(navController: NavController) {
     ){
         TopNavBar(navController)
         Text(
-            text = "History: Multiple Choice",
+            text = "$documentPath: Multiple Choice",
             style = TextStyle(
                 fontSize = 46.sp,
                 color = Color.Black,
@@ -179,5 +179,5 @@ fun MultipleChoice(navController: NavController) {
 fun MultiPreview() {
     lateinit var navController: NavHostController
     navController = rememberNavController()
-    MultipleChoice(navController)
+    //MultipleChoice(navController)
 }

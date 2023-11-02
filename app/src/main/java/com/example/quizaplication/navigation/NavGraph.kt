@@ -30,11 +30,11 @@ fun SetUpNavGraph (navController : NavHostController){
         ){
             QuizThemeScreen(navController = navController)
         }
-        composable(
+       /* composable(
             route = Screen.MultipleChoiceQuiz.route
         ){
             MultipleChoiceQuizScreen(navController = navController)
-        }
+        }*/
         composable(
             route = Screen.Random.route
         ){
@@ -57,8 +57,9 @@ fun SetUpNavGraph (navController : NavHostController){
         }
         composable(
             route = Screen.MultipleChoice.route
-        ){
-            MultipleChoice(navController = navController)
+        ){backStackEntry ->
+            val documentPath = backStackEntry.arguments?.getString("documentPath") ?: ""
+            MultipleChoice(navController = navController, documentPath = documentPath)
         }
 
     }
