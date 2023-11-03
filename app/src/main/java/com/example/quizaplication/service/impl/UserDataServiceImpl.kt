@@ -24,6 +24,25 @@ class UserDataServiceImpl @Inject constructor(private val firestore: FirebaseFir
         return userName
     }
 
+    //Non working, doesn't return list before the check is complete in signup
+    override suspend fun getAllNames(): List<String> {
+        val userNames = mutableListOf<String>()
+        val userData = firestore.collection("userData")
+
+        userData.get().addOnSuccessListener { querySnapshot ->
+            for (document in querySnapshot.documents) {
+                val value = document.getString("userName")
+
+                if (value != null) {
+                    userNames.add(value)
+                }
+            }
+
+        }.await()
+
+        return userNames
+    }
+
     override suspend fun updateScore(id: String, quizType: String, subject: String, points: Int) {
         val updates = hashMapOf<String, Any>(
             "${quizType}.${subject}" to points
