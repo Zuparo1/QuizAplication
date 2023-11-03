@@ -37,12 +37,12 @@ class MainActivity : ComponentActivity() {
 }
 
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
     lateinit var navController: NavHostController
     navController = rememberNavController()
     SetUpNavGraph(navController = navController)
 
-}
+}*/
 
