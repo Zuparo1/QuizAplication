@@ -44,7 +44,7 @@ fun SignUpScreen(
         .fillMaxWidth()
         .padding(16.dp, 4.dp)
     Column {
-        TopNavBar(navController)
+        TopNavBar(navController,"")
         Column (
             modifier = modifier
                 .fillMaxWidth()

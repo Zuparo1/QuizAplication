@@ -4,13 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.quizaplication.screens.HomeScreen
+import com.example.quizaplication.screens.home.HomeScreen
 
 import com.example.quizaplication.screens.QuizThemeScreen
 import com.example.quizaplication.screens.SettingScreen
 import com.example.quizaplication.screens.login.LoginScreen
-import com.example.quizaplication.screens.login.LoginState
-import com.example.quizaplication.screens.quiz.MultipleChoice
+import com.example.quizaplication.screens.quiz.SelectQuizTypeScreen
+import com.example.quizaplication.screens.quiz.type.MultipleChoice
 import com.example.quizaplication.screens.signup.SignUpScreen
 
 
@@ -43,9 +43,24 @@ fun SetUpNavGraph (navController : NavHostController){
         ){
             SignUpScreen(navController = navController)
         }
+        /*composable(
+            route = Screen.SelectQuizType.route
+        ){backStackEntry ->
+            val collectionPath = backStackEntry.arguments?.getString("collectionPath") ?: ""
+            SelectQuizTypeScreen(navController = navController, collectionPath = collectionPath)
+        }
         composable(
             route = Screen.MultipleChoice.route
         ){backStackEntry ->
+            val documentPath = backStackEntry.arguments?.getString("documentPath") ?: ""
+            MultipleChoice(navController = navController, documentPath = documentPath)
+        }*/
+        composable(route = Screen.SelectQuizType.route) { backStackEntry ->
+            val documentPath = backStackEntry.arguments?.getString("documentPath") ?: ""
+            SelectQuizTypeScreen(navController = navController, documentPath = documentPath)
+        }
+
+        composable(route = Screen.MultipleChoice.route) { backStackEntry ->
             val documentPath = backStackEntry.arguments?.getString("documentPath") ?: ""
             MultipleChoice(navController = navController, documentPath = documentPath)
         }

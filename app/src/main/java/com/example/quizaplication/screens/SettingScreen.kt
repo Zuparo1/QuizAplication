@@ -18,12 +18,13 @@ import com.example.quizaplication.navigation.TopNavBar
 
 @Composable
 fun SettingScreen(navController: NavController) {
+    val pageTitle = "Settings"
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        TopNavBar(navController)
+        TopNavBar(navController,pageTitle)
         Text(text = "Settings",
             style = TextStyle(
                 fontSize = 46.sp,

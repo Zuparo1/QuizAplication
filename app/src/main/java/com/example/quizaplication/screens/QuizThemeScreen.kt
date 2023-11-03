@@ -1,5 +1,6 @@
 package com.example.quizaplication.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -15,26 +17,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
+import com.example.quizaplication.R
 import com.example.quizaplication.model.QuizCategory
 import com.example.quizaplication.navigation.Screen
 import com.example.quizaplication.navigation.TopNavBar
 
 @Composable
 fun QuizThemeScreen(
-    navController: NavController
+    navController: NavController,
 ) {
+    val pageTitle = "Quiz Theme"
+
     Column(modifier = Modifier
         .fillMaxSize()
-        .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
+        .padding(16.dp)
+        //.background((colorResource(id = R.color.primaryColor))),
+        ,verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        TopNavBar(navController)
+        TopNavBar(navController, pageTitle)
         Text(text = "Choose Category",
             style = TextStyle(
                 fontSize = 46.sp,
@@ -53,7 +60,7 @@ fun QuizThemeScreen(
                 QuizCategory(6, "Norwegian"),
                 QuizCategory(7, "Biology"),
                 QuizCategory(8, "Chemistry"),
-                QuizCategory(9, "Data security"),
+                QuizCategory(9, "Cyber Security"),
                 QuizCategory(10, "Mix"),
                 QuizCategory(11, "AI"),)
             categories.forEach { category ->
@@ -73,20 +80,14 @@ fun CategoryItem(
     category: QuizCategory,
     navController: NavController
 ) {
-    val categoryColors = listOf(
-        Color(0xFFECEFF1),
-        Color(0xFFFAF3E0),
-        Color(0xFFF1FAEE),
-        Color(0xFFE6E6E6),
-        Color(0xFFD8D0C0)
-    )
-    val categoryColor = categoryColors[category.id % categoryColors.size]
+    val categoryColor = colorResource(id = R.color.buttonColor)
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-               .clickable {navController.navigate(route =
-               Screen.MultipleChoice.createRoute(category.name))} //new
+               /*.clickable {navController.navigate(route =
+               Screen.SelectQuizType.createRoute("",category.name))} //new*/
+            .clickable { navController.navigate(route = Screen.SelectQuizType.createQuizRoute( category.name)) }
         ,elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
         ),
@@ -95,6 +96,7 @@ fun CategoryItem(
         )
     ) {
         Text(
+            color = Color.White,
             text = category.name,
             modifier = Modifier
                 .padding(16.dp)

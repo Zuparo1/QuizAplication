@@ -1,4 +1,4 @@
-package com.example.quizaplication.screens
+package com.example.quizaplication.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -40,13 +42,13 @@ import com.google.firebase.auth.FirebaseAuth
 @Composable
 fun HomeScreen(navController: NavController,
                viewModel: HomeViewModel = hiltViewModel()) {
-    val firerbaseAuth = FirebaseAuth.getInstance()
-    val user = firerbaseAuth.currentUser
+    val firebaseAuth = FirebaseAuth.getInstance()
+    val user = firebaseAuth.currentUser
     var userState by remember { mutableStateOf(user)}
     val homeState by viewModel.homeState
 
     val logoDrawable = painterResource(id = R.drawable.ic_launcher_foreground)
-    val backgorundDrawable = painterResource(id = R.drawable.ic_launcher_background)
+    val backgroundDrawable = painterResource(id = R.drawable.ic_launcher_background)
 
     LaunchedEffect(Unit) {
         if (user != null) {
@@ -57,7 +59,7 @@ fun HomeScreen(navController: NavController,
     Box(
             modifier = Modifier.fillMaxSize()
     ){
-        Image(painter = backgorundDrawable,
+        Image(painter = backgroundDrawable,
                 contentDescription ="Background picture for home-screen",
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier.fillMaxSize()
@@ -91,6 +93,7 @@ fun HomeScreen(navController: NavController,
 
             ){
                 Button(
+                        colors = ButtonDefaults.buttonColors(colorResource(id = R.color.buttonColor)),
                         onClick = { navController.navigate(route = Screen.QuizTheme.route) },
                         modifier = Modifier
                             .padding(8.dp)
@@ -100,6 +103,7 @@ fun HomeScreen(navController: NavController,
                 }
                 if (userState == null){
                     Button(
+                        colors = ButtonDefaults.buttonColors(colorResource(id = R.color.buttonColor)),
                         onClick = { navController.navigate(route = Screen.LogIn.route) },
                         modifier = Modifier
                             .padding(8.dp)
@@ -108,6 +112,7 @@ fun HomeScreen(navController: NavController,
                         Text(text = "Log In")
                     }
                     Button(
+                        colors = ButtonDefaults.buttonColors(colorResource(id = R.color.buttonColor)),
                         onClick = { navController.navigate(route = Screen.Register.route) },
                         modifier = Modifier
                             .padding(8.dp)
@@ -118,8 +123,9 @@ fun HomeScreen(navController: NavController,
                 }
                 else{
                     Button(
+                        colors = ButtonDefaults.buttonColors(colorResource(id = R.color.buttonColor)),
                         onClick = {
-                            firerbaseAuth.signOut()
+                            firebaseAuth.signOut()
                                   userState = null
                                   },
                         modifier = Modifier
