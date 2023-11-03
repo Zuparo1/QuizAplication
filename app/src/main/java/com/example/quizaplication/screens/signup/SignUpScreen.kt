@@ -121,13 +121,13 @@ fun PasswordCheckField(passwordCheck: String, onNewValue: (String) -> Unit, modi
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PasswordField(password: String, @StringRes placeholder: Int, onNewValue: (String) -> Unit, icon: ImageVector, iconDesc: String, modifier: Modifier = Modifier) {
-    var isVisable by remember { mutableStateOf(false)}
+    var isVisible by remember { mutableStateOf(false)}
     val visibilityIcon =
-        if (isVisable) painterResource(R.drawable.icon_visibility)
+        if (isVisible) painterResource(R.drawable.icon_visibility)
         else painterResource(R.drawable.icon_visibility_off)
 
     val visualTransformation =
-        if (isVisable) VisualTransformation.None else PasswordVisualTransformation()
+        if (isVisible) VisualTransformation.None else PasswordVisualTransformation()
 
     OutlinedTextField(
         modifier = modifier,
@@ -136,7 +136,7 @@ private fun PasswordField(password: String, @StringRes placeholder: Int, onNewVa
         placeholder = {Text(text = stringResource(id = placeholder))},
         leadingIcon = { Icon(imageVector = icon, contentDescription = iconDesc) },
         trailingIcon = {
-            IconButton(onClick = { isVisable = !isVisable }) {
+            IconButton(onClick = { isVisible = !isVisible }) {
                 Icon(painter = visibilityIcon, contentDescription = "Visibility")
             }
         },
