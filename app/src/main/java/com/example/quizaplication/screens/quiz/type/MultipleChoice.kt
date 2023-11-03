@@ -65,7 +65,7 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
     ){
         TopNavBar(navController, pageTitle)
         Text(
-            text = "$documentPath: Multiple Choice",
+            text = documentPath,
             style = TextStyle(
                 fontSize = 46.sp,
                 color = Color.Black,
