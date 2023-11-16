@@ -11,6 +11,7 @@ import com.example.quizaplication.screens.SettingScreen
 import com.example.quizaplication.screens.login.LoginScreen
 import com.example.quizaplication.screens.quiz.SelectQuizTypeScreen
 import com.example.quizaplication.screens.quiz.type.MultipleChoice
+import com.example.quizaplication.screens.quiz.type.TrueOrFalse
 import com.example.quizaplication.screens.signup.SignUpScreen
 
 
@@ -63,6 +64,10 @@ fun SetUpNavGraph (navController : NavHostController){
         composable(route = Screen.MultipleChoice.route) { backStackEntry ->
             val documentPath = backStackEntry.arguments?.getString("documentPath") ?: ""
             MultipleChoice(navController = navController, documentPath = documentPath)
+        }
+        composable(route = Screen.TrueOrFalse.route) { backStackEntry ->
+            val documentPath = backStackEntry.arguments?.getString("documentPath") ?: ""
+            TrueOrFalse(navController = navController, documentPath = documentPath)
         }
 
     }

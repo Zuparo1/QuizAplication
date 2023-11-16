@@ -54,7 +54,7 @@ fun SelectQuizTypeScreen(navController: NavController
 
     val quizTypes = listOf(
         QuizTypeData("Multiple Choice","MultipleChoice"),
-        QuizTypeData("True or False","MultipleChoice"),
+        QuizTypeData("True or False","TrueOrFalse"),
         QuizTypeData("Text Input","MultipleChoice"),
         QuizTypeData("Mix","MultipleChoice"),
         QuizTypeData("Multimedia","MultipleChoice"),
@@ -119,6 +119,7 @@ fun SelectQuizTypeScreen(navController: NavController
                     err = false
                     navController.navigate(route =
                     Screen.Route.createRoute(selectedQuizType!!.path, documentPath))
+                    println(Screen.Route.createRoute(selectedQuizType!!.path, documentPath))
                 }
                 else{
                     err = true

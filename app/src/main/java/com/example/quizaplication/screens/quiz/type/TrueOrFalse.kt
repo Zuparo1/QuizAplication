@@ -18,10 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.NavController
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,7 +38,7 @@ import com.example.quizaplication.navigation.TopNavBar
 import com.example.quizaplication.screens.quiz.QuizViewModel
 
 @Composable
-fun MultipleChoice(navController: NavController,
+fun TrueOrFalse(navController: NavController,
                    documentPath : String) {
     val pageTitle = "Quiz"
 
@@ -55,7 +52,7 @@ fun MultipleChoice(navController: NavController,
 
 
     LaunchedEffect(Unit){
-        viewModel.fetchQuizData("MultipleChoiceQuiz",documentPath)
+        viewModel.fetchQuizData("TrueOrFalse",documentPath)
     }
 
     Column(
@@ -80,9 +77,9 @@ fun MultipleChoice(navController: NavController,
                     .fillMaxSize()
                     .padding(12.dp),
                 elevation = CardDefaults.cardElevation(8.dp),
-                        colors = CardDefaults.cardColors(
-                        containerColor = Color.LightGray
-                        )
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.LightGray
+                )
 
             ){
                 val question = quizQuestions[currentQuestionIndex]
@@ -112,13 +109,13 @@ fun MultipleChoice(navController: NavController,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp)
-                            ,colors = ButtonDefaults.buttonColors(
+                        ,colors = ButtonDefaults.buttonColors(
                             containerColor =
                             if (selectedAnswer == option)
                                 colorResource(id = R.color.buttonPressedColor)
                             else
                                 colorResource(id = R.color.buttonColor)
-                            ),
+                        ),
                     ) {
                         Text(text = option)
                     }
@@ -192,22 +189,14 @@ fun MultipleChoice(navController: NavController,
             }
         }
     }
-
-       //WORKING TEMPLATE
-        /*Column(modifier = Modifier.padding(16.dp)) {
-        quizQuestions.forEachIndexed { index, question ->
-            Text(text = "${index + 1}. OPTIONS: ${question.options.joinToString(", ")}")
-            Text(text = "${index + 1}. PROMPT: ${question.prompt}")
-            Text(text = "${index + 1}. CORRECT: ${question.correct}")
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-    }*/
 }
 
-@Preview
-@Composable
-fun MultiPreview() {
-    lateinit var navController: NavHostController
-    navController = rememberNavController()
-   // MultipleChoice(navController,"History")
+//WORKING TEMPLATE
+/*Column(modifier = Modifier.padding(16.dp)) {
+quizQuestions.forEachIndexed { index, question ->
+    Text(text = "${index + 1}. OPTIONS: ${question.options.joinToString(", ")}")
+    Text(text = "${index + 1}. PROMPT: ${question.prompt}")
+    Text(text = "${index + 1}. CORRECT: ${question.correct}")
+    Spacer(modifier = Modifier.height(8.dp))
 }
+}*/
