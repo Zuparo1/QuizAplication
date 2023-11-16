@@ -39,6 +39,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.quizaplication.R
@@ -136,10 +137,8 @@ fun TextInput(navController: NavController, documentPath : String) {
                 )
                 Button(
                     onClick = {
-                        selectedAnswer = textInput
-                        val isCorrect = selectedAnswer == question.answer
-                        println(question.answer)
-                        println(selectedAnswer)
+                        selectedAnswer = textInput.uppercase()
+                        val isCorrect = selectedAnswer == question.answer.uppercase()
                         if (isCorrect) {
                             correctAnswers++
                             buttonBackgroundColor = Color.Green
