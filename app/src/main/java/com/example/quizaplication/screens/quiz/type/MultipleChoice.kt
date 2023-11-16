@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.quizaplication.R
 import com.example.quizaplication.navigation.TopNavBar
-import com.example.quizaplication.screens.quiz.QuizViewModel
+import com.example.quizaplication.screens.viewModel.MultipleChoiceViewModel
 
 @Composable
 fun MultipleChoice(navController: NavController, documentPath : String) {
@@ -49,7 +49,7 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
     var correctAnswers by remember { mutableStateOf(0) }
     var buttonBackgroundColor by remember { mutableStateOf(Color.Transparent) }
 
-    val viewModel: QuizViewModel = viewModel()
+    val viewModel: MultipleChoiceViewModel = viewModel()
     val quizQuestions by viewModel.quizQuestions.observeAsState(initial = emptyList())
 
 
