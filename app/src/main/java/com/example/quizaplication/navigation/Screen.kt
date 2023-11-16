@@ -10,6 +10,7 @@ sealed class Screen(val route : String){
 
     object SelectQuizType : Screen(route = "SelectQuizTypeScreen/{documentPath}")
     object MultipleChoice : Screen(route = "MultipleChoice/{documentPath}")
+    object TrueOrFalse : Screen(route = "TrueOrFalse/{documentPath}")
     object Route : Screen(route = "{collectionPath}/{documentPath}")
     fun createRoute(collectionPath: String ,documentPath : String): String{
         return "$collectionPath/$documentPath"
