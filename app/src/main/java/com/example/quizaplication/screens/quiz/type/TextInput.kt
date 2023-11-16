@@ -42,10 +42,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.quizaplication.R
 import com.example.quizaplication.navigation.TopNavBar
 import com.example.quizaplication.screens.viewModel.MultipleChoiceViewModel
 import com.example.quizaplication.screens.viewModel.TextInputViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,8 +59,10 @@ fun TextInput(navController: NavController, documentPath : String) {
     var correctAnswers by remember { mutableStateOf(0) }
     var buttonBackgroundColor by remember { mutableStateOf(Color.Transparent) }
     var textInput by remember { mutableStateOf("") }
+    val firebaseAuth = FirebaseAuth.getInstance()
+    val user = firebaseAuth.currentUser
 
-    val viewModel: TextInputViewModel = viewModel()
+    val viewModel: TextInputViewModel = hiltViewModel()
     val quizQuestions by viewModel.textInput.observeAsState(initial = emptyList())
 
 
@@ -161,6 +165,9 @@ fun TextInput(navController: NavController, documentPath : String) {
             }
         }
         else {
+            if (user != null) {
+                viewModel.savePointsToDatabase(user.uid, documentPath, correctAnswers)
+            }
             Text(
                 text = "All questions answered. Quiz completed!",
                 style = TextStyle(

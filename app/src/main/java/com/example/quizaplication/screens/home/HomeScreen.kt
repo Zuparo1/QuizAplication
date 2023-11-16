@@ -92,15 +92,6 @@ fun HomeScreen(navController: NavController,
                     horizontalAlignment = Alignment.CenterHorizontally
 
             ){
-                Button(
-                        colors = ButtonDefaults.buttonColors(colorResource(id = R.color.buttonColor)),
-                        onClick = { navController.navigate(route = Screen.QuizTheme.route) },
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .fillMaxWidth(0.5f)
-                ) {
-                    Text(text = "Start Quizzing")
-                }
                 if (userState == null){
                     Button(
                         colors = ButtonDefaults.buttonColors(colorResource(id = R.color.buttonColor)),
@@ -122,6 +113,15 @@ fun HomeScreen(navController: NavController,
                     }
                 }
                 else{
+                    Button(
+                        colors = ButtonDefaults.buttonColors(colorResource(id = R.color.buttonColor)),
+                        onClick = { navController.navigate(route = Screen.QuizTheme.route) },
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth(0.5f)
+                    ) {
+                        Text(text = "Start Quizzing")
+                    }
                     Button(
                         colors = ButtonDefaults.buttonColors(colorResource(id = R.color.buttonColor)),
                         onClick = {

@@ -3,11 +3,20 @@ package com.example.quizaplication.screens.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.quizaplication.model.quizDataClass.MultipleChoiceData
+import com.example.quizaplication.service.UserDataService
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MultipleChoiceViewModel : ViewModel() {
+@HiltViewModel
+class MultipleChoiceViewModel @Inject constructor(
+    private val userDataService: UserDataService,
+) : ViewModel() {
     private val _quizQuestions = MutableLiveData<List<MultipleChoiceData>>()
     val quizQuestions: LiveData<List<MultipleChoiceData>> get() = _quizQuestions
 
@@ -33,6 +42,14 @@ class MultipleChoiceViewModel : ViewModel() {
                         questionList.add(MultipleChoiceData(prompt, optionsArray, correct))
                     }
                     _quizQuestions.postValue(questionList)
+        }
+    }
+
+    fun savePointsToDatabase(id: String, subject: String, points: Int) {
+        viewModelScope.launch {
+            try {
+                userDataService.updateScore(id, "MultipleChoiceQuiz", subject, points)
+            } catch (_: Exception) {  }
         }
     }
 }

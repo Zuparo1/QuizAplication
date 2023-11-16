@@ -3,11 +3,20 @@ package com.example.quizaplication.screens.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.quizaplication.model.quizDataClass.TextInputData
 import com.example.quizaplication.model.quizDataClass.TrueOrFalseData
+import com.example.quizaplication.service.UserDataService
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-class TextInputViewModel : ViewModel() {
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class TextInputViewModel @Inject constructor(
+    private val userDataService: UserDataService,
+) : ViewModel() {
     private val _textInput = MutableLiveData<List<TextInputData>>()
     val textInput: LiveData<List<TextInputData>> get() = _textInput
 
@@ -29,6 +38,14 @@ class TextInputViewModel : ViewModel() {
                 println(questionList.size)
             }
             _textInput.postValue(questionList)
+        }
+    }
+
+    fun savePointsToDatabase(id: String, subject: String, points: Int) {
+        viewModelScope.launch {
+            try {
+                userDataService.updateScore(id, "TextInput", subject, points)
+            } catch (_: Exception) {  }
         }
     }
 }

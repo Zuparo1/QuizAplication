@@ -3,10 +3,19 @@ package com.example.quizaplication.screens.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.quizaplication.model.quizDataClass.TrueOrFalseData
+import com.example.quizaplication.service.UserDataService
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-class TrueOrFalseViewModel : ViewModel() {
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class TrueOrFalseViewModel @Inject constructor(
+    private val userDataService: UserDataService,
+) : ViewModel() {
     private val _trueOrFalse = MutableLiveData<List<TrueOrFalseData>>()
     val trueOrFalse: LiveData<List<TrueOrFalseData>> get() = _trueOrFalse
 
@@ -28,6 +37,14 @@ class TrueOrFalseViewModel : ViewModel() {
                 println(questionList.size)
             }
             _trueOrFalse.postValue(questionList)
+        }
+    }
+
+    fun savePointsToDatabase(id: String, subject: String, points: Int) {
+        viewModelScope.launch {
+            try {
+                userDataService.updateScore(id, "TrueOrFalse", subject, points)
+            } catch (_: Exception) {  }
         }
     }
 }

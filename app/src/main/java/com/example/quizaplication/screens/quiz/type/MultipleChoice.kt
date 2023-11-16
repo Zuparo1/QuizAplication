@@ -36,9 +36,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.quizaplication.R
 import com.example.quizaplication.navigation.TopNavBar
 import com.example.quizaplication.screens.viewModel.MultipleChoiceViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun MultipleChoice(navController: NavController, documentPath : String) {
@@ -48,8 +50,10 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
     var selectedAnswer by remember { mutableStateOf<String?>(null) }
     var correctAnswers by remember { mutableStateOf(0) }
     var buttonBackgroundColor by remember { mutableStateOf(Color.Transparent) }
+    val firebaseAuth = FirebaseAuth.getInstance()
+    val user = firebaseAuth.currentUser
 
-    val viewModel: MultipleChoiceViewModel = viewModel()
+    val viewModel: MultipleChoiceViewModel = hiltViewModel()
     val quizQuestions by viewModel.quizQuestions.observeAsState(initial = emptyList())
 
 
@@ -165,6 +169,9 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
             }
         }
         else {
+            if (user != null) {
+                viewModel.savePointsToDatabase(user.uid, documentPath, correctAnswers)
+            }
             Text(
                 text = "All questions answered. Quiz completed!",
                 style = TextStyle(
