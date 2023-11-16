@@ -41,7 +41,7 @@ import com.example.quizaplication.navigation.TopNavBar
 import com.example.quizaplication.screens.viewModel.MultipleChoiceViewModel
 
 @Composable
-fun MultipleChoice(navController: NavController, documentPath : String) {
+fun TextInput(navController: NavController, documentPath : String) {
     val pageTitle = "Quiz"
 
     var currentQuestionIndex by remember { mutableStateOf(0) }
@@ -54,12 +54,7 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
 
 
     LaunchedEffect(Unit){
-        //If statement necessarily because one case of misspelling in database
-        if (documentPath == "Programming"){
-            viewModel.fetchQuizData("MultipleChoiceQuiz","Programing")
-        }
-        else
-            viewModel.fetchQuizData("MultipleChoiceQuiz",documentPath)
+        viewModel.fetchQuizData("MultipleChoiceQuiz",documentPath)
     }
 
     Column(
@@ -208,12 +203,4 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
             Spacer(modifier = Modifier.height(8.dp))
         }
     }*/
-}
-
-@Preview
-@Composable
-fun MultiPreview() {
-    lateinit var navController: NavHostController
-    navController = rememberNavController()
-    MultipleChoice(navController,"History")
 }

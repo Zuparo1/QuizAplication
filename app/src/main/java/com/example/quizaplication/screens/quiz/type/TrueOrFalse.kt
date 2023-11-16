@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import com.example.quizaplication.R
 import com.example.quizaplication.navigation.TopNavBar
 import com.example.quizaplication.screens.viewModel.TrueOrFalseViewModel
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 
 @Composable
@@ -70,7 +71,10 @@ fun TrueOrFalse(navController: NavController, documentPath : String) {
                 color = Color.Black,
                 fontWeight = FontWeight.Bold
             ),
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
+                .padding(16.dp)
+                .align(Alignment.CenterHorizontally)
+
         )
         if (currentQuestionIndex < quizQuestions.size){
             Card(
