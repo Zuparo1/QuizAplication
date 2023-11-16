@@ -10,6 +10,7 @@ import com.example.quizaplication.screens.QuizThemeScreen
 import com.example.quizaplication.screens.SettingScreen
 import com.example.quizaplication.screens.login.LoginScreen
 import com.example.quizaplication.screens.quiz.SelectQuizTypeScreen
+import com.example.quizaplication.screens.quiz.type.MultiMedia
 import com.example.quizaplication.screens.quiz.type.MultipleChoice
 import com.example.quizaplication.screens.quiz.type.TextInput
 import com.example.quizaplication.screens.quiz.type.TrueOrFalse
@@ -45,18 +46,6 @@ fun SetUpNavGraph (navController : NavHostController){
         ){
             SignUpScreen(navController = navController)
         }
-        /*composable(
-            route = Screen.SelectQuizType.route
-        ){backStackEntry ->
-            val collectionPath = backStackEntry.arguments?.getString("collectionPath") ?: ""
-            SelectQuizTypeScreen(navController = navController, collectionPath = collectionPath)
-        }
-        composable(
-            route = Screen.MultipleChoice.route
-        ){backStackEntry ->
-            val documentPath = backStackEntry.arguments?.getString("documentPath") ?: ""
-            MultipleChoice(navController = navController, documentPath = documentPath)
-        }*/
         composable(route = Screen.SelectQuizType.route) { backStackEntry ->
             val documentPath = backStackEntry.arguments?.getString("documentPath") ?: ""
             SelectQuizTypeScreen(navController = navController, documentPath = documentPath)
@@ -74,6 +63,10 @@ fun SetUpNavGraph (navController : NavHostController){
         composable(route = Screen.TrueOrFalse.route) { navBackStackEntry ->
             val documentPath = navBackStackEntry.arguments?.getString("documentPath") ?: ""
             TrueOrFalse(navController = navController, documentPath = documentPath)
+        }
+        composable(route = Screen.MultiMedia.route) { navBackStackEntry ->
+            val documentPath = navBackStackEntry.arguments?.getString("documentPath") ?: ""
+            MultiMedia(navController = navController, documentPath = documentPath)
         }
 
     }

@@ -56,8 +56,8 @@ fun SelectQuizTypeScreen(navController: NavController
         QuizTypeData("Multiple Choice","MultipleChoice"),
         QuizTypeData("True or False","TrueOrFalse"),
         QuizTypeData("Text Input","TextInput"),
-        QuizTypeData("Mix","MultipleChoice"),
-        QuizTypeData("Multimedia","MultipleChoice"),
+       // QuizTypeData("Mix","MultipleChoice"),
+        QuizTypeData("Multimedia","MultiMedia"),
         )
 
     Column(modifier = Modifier
