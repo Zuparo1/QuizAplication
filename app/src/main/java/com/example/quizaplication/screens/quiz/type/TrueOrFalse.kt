@@ -33,9 +33,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.quizaplication.R
 import com.example.quizaplication.navigation.TopNavBar
 import com.example.quizaplication.screens.viewModel.TrueOrFalseViewModel
+import com.google.firebase.auth.FirebaseAuth
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 
@@ -48,8 +50,10 @@ fun TrueOrFalse(navController: NavController, documentPath : String) {
     var correctAnswers by remember { mutableStateOf(0) }
     var buttonBackgroundColor by remember { mutableStateOf(Color.Transparent) }
     val options = listOf(true, false)
+    val firebaseAuth = FirebaseAuth.getInstance()
+    val user = firebaseAuth.currentUser
 
-    val viewModel: TrueOrFalseViewModel = viewModel()
+    val viewModel: TrueOrFalseViewModel = hiltViewModel()
     val quizQuestions by viewModel.trueOrFalse.observeAsState(initial = emptyList())
 
 
@@ -161,6 +165,9 @@ fun TrueOrFalse(navController: NavController, documentPath : String) {
             }
         }
         else {
+            if (user != null) {
+                viewModel.savePointsToDatabase(user.uid, documentPath, correctAnswers)
+            }
             Text(
                 text = "All questions answered. Quiz completed!",
                 style = TextStyle(

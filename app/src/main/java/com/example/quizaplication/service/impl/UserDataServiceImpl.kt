@@ -1,11 +1,10 @@
 package com.example.quizaplication.service.impl
 
 import android.util.Log
+import com.example.quizaplication.common.ext.lowerCaseFirstChar
 import com.example.quizaplication.model.UserData
-import com.example.quizaplication.model.userDatas.MultipleChoice
 import com.example.quizaplication.service.UserDataService
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -24,28 +23,29 @@ class UserDataServiceImpl @Inject constructor(private val firestore: FirebaseFir
         return userName
     }
 
-    //Non working, doesn't return list before the check is complete in signup
-    override suspend fun getAllNames(): List<String> {
-        val userNames = mutableListOf<String>()
-        val userData = firestore.collection("userData")
-
-        userData.get().addOnSuccessListener { querySnapshot ->
-            for (document in querySnapshot.documents) {
-                val value = document.getString("userName")
-
-                if (value != null) {
-                    userNames.add(value)
-                }
-            }
-
-        }.await()
-
-        return userNames
+    override suspend fun changeName(
+        id: String,
+        name: String,
+        onResult: (Throwable?) -> Unit
+        ) {
+        val updates = hashMapOf<String, Any>(
+            "userName" to name
+        )
+        firestore.collection("userData").document(id).update(updates).addOnCompleteListener { onResult(it.exception) }.await()
     }
 
     override suspend fun updateScore(id: String, quizType: String, subject: String, points: Int) {
+        var existingPoints = 0L;
+        val userDataRef = firestore.collection("userData").document(id)
+        userDataRef.get().addOnSuccessListener { document ->
+            existingPoints = document["${quizType.lowerCaseFirstChar()}.${subject.lowerCaseFirstChar()}"] as Long
+        }.await()
+        Log.d("Points", "${existingPoints.toInt()}-${points}")
+        if (existingPoints.toInt() >= points) {
+            return
+        }
         val updates = hashMapOf<String, Any>(
-            "${quizType}.${subject}" to points
+            "${quizType.lowerCaseFirstChar()}.${subject.lowerCaseFirstChar()}" to points
         )
         firestore.collection("userData").document(id).update(updates)
     }
@@ -55,16 +55,25 @@ class UserDataServiceImpl @Inject constructor(private val firestore: FirebaseFir
         val userDataRef = firestore.collection("userData").document(id)
 
         userDataRef.get().addOnSuccessListener { document ->
-            userData.multipleChoice.dataSecurity = document["multipleChoice.dataSecurity"] as Long
-            userData.multipleChoice.biology = document["multipleChoice.biology"] as Long
-            userData.multipleChoice.chemistry = document["multipleChoice.chemistry"] as Long
-            userData.multipleChoice.math = document["multipleChoice.math"] as Long
-            userData.multipleChoice.english = document["multipleChoice.english"] as Long
-            userData.multipleChoice.history = document["multipleChoice.history"] as Long
-            userData.multipleChoice.mix = document["multipleChoice.mix"] as Long
-            userData.multipleChoice.norwegian = document["multipleChoice.norwegian"] as Long
-            userData.multipleChoice.programing = document["multipleChoice.programing"] as Long
-            userData.multipleChoice.science = document["multipleChoice.science"] as Long
+            userData.multipleChoiceQuiz.math = document["multipleChoiceQuiz.math"] as Long
+            userData.multipleChoiceQuiz.history = document["multipleChoiceQuiz.history"] as Long
+            userData.multipleChoiceQuiz.programing = document["multipleChoiceQuiz.programing"] as Long
+            userData.multipleChoiceQuiz.science = document["multipleChoiceQuiz.science"] as Long
+
+            userData.trueOrFalse.math = document["trueOrFalse.math"] as Long
+            userData.trueOrFalse.history = document["trueOrFalse.history"] as Long
+            userData.trueOrFalse.programing = document["trueOrFalse.programing"] as Long
+            userData.trueOrFalse.science = document["trueOrFalse.science"] as Long
+
+            userData.textInput.math = document["textInput.math"] as Long
+            userData.textInput.history = document["textInput.history"] as Long
+            userData.textInput.programing = document["textInput.programing"] as Long
+            userData.textInput.science = document["textInput.science"] as Long
+
+            userData.multiMedia.math = document["multiMedia.math"] as Long
+            userData.multiMedia.history = document["multiMedia.history"] as Long
+            userData.multiMedia.programing = document["multiMedia.programing"] as Long
+            userData.multiMedia.science = document["multiMedia.science"] as Long
         }.await()
         return userData
     }

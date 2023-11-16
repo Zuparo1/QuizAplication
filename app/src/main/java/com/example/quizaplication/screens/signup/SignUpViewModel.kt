@@ -11,7 +11,6 @@ import com.example.quizaplication.common.ext.isValidUsername
 import com.example.quizaplication.common.passwordErrorSwitch
 import com.example.quizaplication.common.usernameErrorSwitch
 import com.example.quizaplication.model.UserData
-import com.example.quizaplication.model.userDatas.MultipleChoice
 import com.example.quizaplication.service.AccountService
 import com.example.quizaplication.service.UserDataService
 import dagger.hilt.android.lifecycle.HiltViewModel
