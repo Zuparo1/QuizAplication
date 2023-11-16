@@ -18,10 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.NavController
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,28 +35,26 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.quizaplication.R
 import com.example.quizaplication.navigation.TopNavBar
-import com.example.quizaplication.screens.viewModel.MultipleChoiceViewModel
+import com.example.quizaplication.screens.viewModel.TrueOrFalseViewModel
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
+
 
 @Composable
-fun MultipleChoice(navController: NavController, documentPath : String) {
-    val pageTitle = "Quiz"
+fun TrueOrFalse(navController: NavController, documentPath : String) {
+    val pageTitle = "True or False"
 
     var currentQuestionIndex by remember { mutableStateOf(0) }
-    var selectedAnswer by remember { mutableStateOf<String?>(null) }
+    var selectedAnswer by remember { mutableStateOf<Boolean?>(null) }
     var correctAnswers by remember { mutableStateOf(0) }
     var buttonBackgroundColor by remember { mutableStateOf(Color.Transparent) }
+    val options = listOf(true, false)
 
-    val viewModel: MultipleChoiceViewModel = viewModel()
-    val quizQuestions by viewModel.quizQuestions.observeAsState(initial = emptyList())
+    val viewModel: TrueOrFalseViewModel = viewModel()
+    val quizQuestions by viewModel.trueOrFalse.observeAsState(initial = emptyList())
 
 
     LaunchedEffect(Unit){
-        //If statement necessarily because one case of misspelling in database
-        if (documentPath == "Programming"){
-            viewModel.fetchQuizData("MultipleChoiceQuiz","Programing")
-        }
-        else
-            viewModel.fetchQuizData("MultipleChoiceQuiz",documentPath)
+        viewModel.fetchQuizData("TrueOrFalse",documentPath)
     }
 
     Column(
@@ -79,6 +74,7 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
             modifier = Modifier
                 .padding(16.dp)
                 .align(Alignment.CenterHorizontally)
+
         )
         if (currentQuestionIndex < quizQuestions.size){
             Card(
@@ -86,9 +82,9 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
                     .fillMaxSize()
                     .padding(12.dp),
                 elevation = CardDefaults.cardElevation(8.dp),
-                        colors = CardDefaults.cardColors(
-                        containerColor = Color.LightGray
-                        )
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.LightGray
+                )
 
             ){
                 val question = quizQuestions[currentQuestionIndex]
@@ -101,7 +97,7 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
                         .align(Alignment.CenterHorizontally),
                 ){
                     Text(
-                        text = question.prompt,
+                        text = question.questionText,
                         style = TextStyle(
                             fontSize = 24.sp,
                             color = Color.Black,
@@ -110,7 +106,7 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
                         textAlign = TextAlign.Center,
                     )
                 }
-                question.options.forEach { option ->
+               for(option in options) {
                     Button(
                         onClick = {
                             selectedAnswer = option
@@ -118,15 +114,15 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp)
-                            ,colors = ButtonDefaults.buttonColors(
+                        ,colors = ButtonDefaults.buttonColors(
                             containerColor =
                             if (selectedAnswer == option)
                                 colorResource(id = R.color.buttonPressedColor)
                             else
                                 colorResource(id = R.color.buttonColor)
-                            ),
+                        ),
                     ) {
-                        Text(text = option)
+                        Text(text = option.toString())
                     }
                 }
                 Spacer(modifier = Modifier.weight(1f))
@@ -142,7 +138,7 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
                 Button(
                     onClick = {
                         if (selectedAnswer != null) {
-                            val isCorrect = selectedAnswer == question.correct
+                            val isCorrect = selectedAnswer == question.isTrue
                             if (isCorrect) {
                                 correctAnswers++
                                 buttonBackgroundColor = Color.Green
@@ -198,22 +194,5 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
             }
         }
     }
-
-       //WORKING TEMPLATE
-        /*Column(modifier = Modifier.padding(16.dp)) {
-        quizQuestions.forEachIndexed { index, question ->
-            Text(text = "${index + 1}. OPTIONS: ${question.options.joinToString(", ")}")
-            Text(text = "${index + 1}. PROMPT: ${question.prompt}")
-            Text(text = "${index + 1}. CORRECT: ${question.correct}")
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-    }*/
 }
 
-@Preview
-@Composable
-fun MultiPreview() {
-    lateinit var navController: NavHostController
-    navController = rememberNavController()
-    MultipleChoice(navController,"History")
-}

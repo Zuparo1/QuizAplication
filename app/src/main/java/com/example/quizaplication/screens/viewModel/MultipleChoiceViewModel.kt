@@ -1,15 +1,15 @@
-package com.example.quizaplication.screens.quiz
+package com.example.quizaplication.screens.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.quizaplication.model.QuizQuestion
+import com.example.quizaplication.model.quizDataClass.MultipleChoiceData
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class QuizViewModel : ViewModel() {
-    private val _quizQuestions = MutableLiveData<List<QuizQuestion>>()
-    val quizQuestions: LiveData<List<QuizQuestion>> get() = _quizQuestions
+class MultipleChoiceViewModel : ViewModel() {
+    private val _quizQuestions = MutableLiveData<List<MultipleChoiceData>>()
+    val quizQuestions: LiveData<List<MultipleChoiceData>> get() = _quizQuestions
 
     fun fetchQuizData(collectionPath : String, documentPath : String) {
         val db = Firebase.firestore
@@ -17,7 +17,7 @@ class QuizViewModel : ViewModel() {
 
       historyRef.get().addOnSuccessListener { document ->
             val questionData = document["questions"] as? Map<String, Any>
-            val questionList = mutableListOf<QuizQuestion>()
+            val questionList = mutableListOf<MultipleChoiceData>()
 
             questionData?.forEach { (_, value) ->
                 val questionMap = value as? Map<String, Any>
@@ -30,7 +30,7 @@ class QuizViewModel : ViewModel() {
                 }
                         val optionsArray = options.toTypedArray()
                         val correct = questionMap?.get("correct") as? String ?: ""
-                        questionList.add(QuizQuestion(prompt, optionsArray, correct))
+                        questionList.add(MultipleChoiceData(prompt, optionsArray, correct))
                     }
                     _quizQuestions.postValue(questionList)
         }

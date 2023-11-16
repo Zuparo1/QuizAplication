@@ -1,6 +1,6 @@
-package com.example.quizaplication.model
+package com.example.quizaplication.model.quizDataClass
 
-data class QuizQuestion (
+data class MultipleChoiceData (
     val prompt : String = "",
     val options : Array<String> = arrayOf(),
     val correct : String = ""

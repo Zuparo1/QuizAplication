@@ -55,7 +55,7 @@ fun QuizThemeScreen(
                 QuizCategory(1, "History"),
                 QuizCategory(2, "Math"),
                 QuizCategory(3, "Science"),
-                QuizCategory(4, "Programing"),
+                QuizCategory(4, "Programming"),
                 QuizCategory(5, "English"),
                 QuizCategory(6, "Norwegian"),
                 QuizCategory(7, "Biology"),

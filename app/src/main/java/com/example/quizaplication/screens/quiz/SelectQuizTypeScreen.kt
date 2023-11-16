@@ -54,8 +54,8 @@ fun SelectQuizTypeScreen(navController: NavController
 
     val quizTypes = listOf(
         QuizTypeData("Multiple Choice","MultipleChoice"),
-        QuizTypeData("True or False","MultipleChoice"),
-        QuizTypeData("Text Input","MultipleChoice"),
+        QuizTypeData("True or False","TrueOrFalse"),
+        QuizTypeData("Text Input","TextInput"),
         QuizTypeData("Mix","MultipleChoice"),
         QuizTypeData("Multimedia","MultipleChoice"),
         )
