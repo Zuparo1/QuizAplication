@@ -143,7 +143,7 @@ fun MultiMedia(navController: NavController, documentPath : String) {
                         AsyncImage(
                             model = imageUrl,
                             contentDescription = "Quiz Image",
-                            contentScale = ContentScale.Crop,
+                            contentScale = ContentScale.Fit,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .aspectRatio(16f / 9f)
@@ -158,7 +158,6 @@ fun MultiMedia(navController: NavController, documentPath : String) {
                         .fillMaxWidth()
                         .align(Alignment.CenterHorizontally)
                 ) {
-
                     item {
                         question.options.forEach { option ->
                             Button(
@@ -206,7 +205,7 @@ fun MultiMedia(navController: NavController, documentPath : String) {
                                 }
                             },
                             modifier = Modifier
-                                .align(Alignment.CenterHorizontally)
+                                .fillMaxWidth()
                                 .padding(16.dp)
                                 .background(buttonBackgroundColor),
                             colors = ButtonDefaults.buttonColors(colorResource(id = R.color.buttonColor)),
@@ -253,15 +252,5 @@ fun MultiMedia(navController: NavController, documentPath : String) {
             }
         }
     }
-
-    //WORKING TEMPLATE
-    /*Column(modifier = Modifier.padding(16.dp)) {
-        quizQuestions.forEachIndexed { index, question ->
-            Text(text = "${index + 1}. OPTIONS: ${question.options.joinToString(", ")}")
-            Text(text = "${index + 1}. PROMPT: ${question.prompt}")
-            Text(text = "${index + 1}. CORRECT: ${question.correct}")
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-    }*/
 }
 

@@ -45,7 +45,7 @@ import com.example.quizaplication.navigation.TopNavBar
 @Composable
 fun SelectQuizTypeScreen(navController: NavController
                          , documentPath : String){
-    val pageTitle = "Quiz Settings"
+    val pageTitle = "Quiz Type"
 
     var selectedQuizType by remember { mutableStateOf<QuizTypeData?>(null) }
     var selectedDifficulty by remember { mutableStateOf<String?>(null) }
@@ -56,7 +56,6 @@ fun SelectQuizTypeScreen(navController: NavController
         QuizTypeData("Multiple Choice","MultipleChoice"),
         QuizTypeData("True or False","TrueOrFalse"),
         QuizTypeData("Text Input","TextInput"),
-       // QuizTypeData("Mix","MultipleChoice"),
         QuizTypeData("Multimedia","MultiMedia"),
         )
 
@@ -200,11 +199,3 @@ fun DifficultyLevel(
     }
 }
 
-/*@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    lateinit var navController: NavHostController
-    navController = rememberNavController()
-    SelectQuizTypeScreen(navController = navController,"")
-
-}*/
