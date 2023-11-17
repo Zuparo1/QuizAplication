@@ -3,7 +3,6 @@ package com.example.quizaplication.navigation
 sealed class Screen(val route : String){
     object Home: Screen(route = "HomeScreen")
     object QuizTheme: Screen(route = "QuizThemeScreen")
-    object Random: Screen(route = "RandomScreen")
     object Setting: Screen(route = "SettingScreen")
     object LogIn : Screen(route = "LoginScreen")
     object Register : Screen(route = "SignUpScreen")
@@ -12,6 +11,7 @@ sealed class Screen(val route : String){
     object MultipleChoice : Screen(route = "MultipleChoice/{documentPath}")
     object TrueOrFalse : Screen(route = "TrueOrFalse/{documentPath}")
     object TextInput : Screen(route = "TextInput/{documentPath}")
+    object MultiMedia : Screen(route = "MultiMedia/{documentPath}")
     object Route : Screen(route = "{collectionPath}/{documentPath}")
     fun createRoute(collectionPath: String ,documentPath : String): String{
         return "$collectionPath/$documentPath"
