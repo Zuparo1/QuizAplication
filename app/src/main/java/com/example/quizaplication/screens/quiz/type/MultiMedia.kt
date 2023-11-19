@@ -44,6 +44,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.compose.rememberImagePainter
 import com.example.quizaplication.R
@@ -52,6 +53,7 @@ import com.example.quizaplication.screens.viewModel.MultiMediaViewModel
 import com.example.quizaplication.screens.viewModel.MultipleChoiceViewModel
 import com.google.common.math.Quantiles.Scale
 import com.google.common.math.Quantiles.scale
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 
@@ -64,14 +66,15 @@ fun MultiMedia(navController: NavController, documentPath : String) {
     var correctAnswers by remember { mutableStateOf(0) }
     var buttonBackgroundColor by remember { mutableStateOf(Color.Transparent) }
     var imageUrl by remember { mutableStateOf("") }
+    val firebaseAuth = FirebaseAuth.getInstance()
+    val user = firebaseAuth.currentUser
 
     val storage = FirebaseStorage.getInstance()
-    val viewModel: MultiMediaViewModel = viewModel()
+    val viewModel: MultiMediaViewModel = hiltViewModel()
     val quizQuestions by viewModel.multiMedia.observeAsState(initial = emptyList())
 
     LaunchedEffect(Unit) {
         viewModel.fetchQuizData("MultiMedia", documentPath)
-
     }
 
     fun handlePicture() {
@@ -217,6 +220,9 @@ fun MultiMedia(navController: NavController, documentPath : String) {
                 }
             }
         } else {
+            if (user != null) {
+                viewModel.savePointsToDatabase(user.uid, documentPath, correctAnswers)
+            }
             Text(
                 text = "All questions answered. Quiz completed!",
                 style = TextStyle(

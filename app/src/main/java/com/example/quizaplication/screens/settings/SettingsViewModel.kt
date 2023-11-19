@@ -1,4 +1,4 @@
-package com.example.quizaplication.screens
+package com.example.quizaplication.screens.settings
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.quizaplication.R
 import com.example.quizaplication.common.ext.isValidUsername
 import com.example.quizaplication.common.usernameErrorSwitch
+import com.example.quizaplication.screens.settings.SettingsState
 import com.example.quizaplication.service.UserDataService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

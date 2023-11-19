@@ -1,4 +1,4 @@
-package com.example.quizaplication.screens
+package com.example.quizaplication.screens.settings
 
 import androidx.annotation.StringRes
 

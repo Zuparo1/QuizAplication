@@ -7,7 +7,10 @@ import androidx.navigation.compose.composable
 import com.example.quizaplication.screens.home.HomeScreen
 
 import com.example.quizaplication.screens.QuizThemeScreen
-import com.example.quizaplication.screens.SettingScreen
+import com.example.quizaplication.screens.leaderboard.LeaderboardGlobalScreen
+import com.example.quizaplication.screens.leaderboard.LeaderboardScreen
+import com.example.quizaplication.screens.leaderboard.LeaderboardUserScreen
+import com.example.quizaplication.screens.settings.SettingScreen
 import com.example.quizaplication.screens.login.LoginScreen
 import com.example.quizaplication.screens.quiz.SelectQuizTypeScreen
 import com.example.quizaplication.screens.quiz.type.MultiMedia
@@ -30,6 +33,20 @@ fun SetUpNavGraph (navController : NavHostController){
             route = Screen.QuizTheme.route
         ){
             QuizThemeScreen(navController = navController)
+        }
+        composable(
+            route = Screen.Leaderboard.route
+        ) {
+            LeaderboardScreen(navController = navController)
+        }
+        composable(route = Screen.LeaderboardUser.route) { backStackEntry ->
+            val documentPath = backStackEntry.arguments?.getString("documentPath") ?: ""
+            LeaderboardUserScreen(navController = navController, documentPath = documentPath)
+        }
+        composable(route = Screen.LeaderboardGlobal.route) { backStackEntry ->
+            val documentPath = backStackEntry.arguments?.getString("documentPath") ?: ""
+            val subjectPath = backStackEntry.arguments?.getString("subjectPath") ?: ""
+            LeaderboardGlobalScreen(navController = navController, documentPath = documentPath, subjectPath = subjectPath)
         }
         composable(
             route = Screen.Setting.route
