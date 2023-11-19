@@ -15,4 +15,7 @@
     <color name="errorColor">#FF0000</color>
     <color name="buttonColor">#0056b3</color>
     <color name="buttonPressedColor">#003366</color>
+    <color name="gold">#d4af37</color>
+    <color name="silver">#AAA9AD</color>
+    <color name="bronze">#CD7F32</color>
 </resources>

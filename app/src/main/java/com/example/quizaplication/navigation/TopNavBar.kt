@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.quizaplication.R
@@ -46,8 +47,11 @@ fun TopNavBar(navController: NavController, pageTitle : String) {
                         tint = Color(R.color.primaryTextColor))
                 }
             }, actions = {
-                IconButton(onClick = { /* Navigate to profile screen */ }) {
-                    Icon(Icons.Outlined.AccountCircle, contentDescription = "Profile",
+                IconButton(onClick = {navController
+                    .navigate(route = Screen.Leaderboard.route)}) {
+                    Icon(
+                        painterResource(id = R.drawable.icon_leaderboard),
+                        contentDescription = "Leaderboard",
                         tint = Color(R.color.primaryTextColor))
                 }
                 IconButton(onClick = {navController
