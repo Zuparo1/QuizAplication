@@ -12,6 +12,7 @@
     <string name="unknown_username_error">Unknown username error</string>
     <string name="username_blank_error">Username cannot be blank</string>
     <string name="username_contains_space_error">Username cannot contain space</string>
+    <string name="username_contains_newline_error">Username cannot contain newline</string>
     <string name="username_too_many_characters_error">Username must be less than 20 characters</string>
     <string name="username_too_few_characters_error">Username must be at least 4 characters</string>
     <string name="email_blank_error">Email cannot be blank</string>
