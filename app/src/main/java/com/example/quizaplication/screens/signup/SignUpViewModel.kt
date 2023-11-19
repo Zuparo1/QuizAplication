@@ -47,7 +47,7 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun onSignUpClick(loggedIn: () -> Unit) {
-        if (username.isValidUsername() == 1 || username.isValidUsername() == 2 || username.isValidUsername() == 3 || username.isValidUsername() == 4) {
+        if (username.isValidUsername() == 1 || username.isValidUsername() == 2 || username.isValidUsername() == 3 || username.isValidUsername() == 4 || username.isValidUsername() == 5) {
             uiState.value = uiState.value.copy(errorMessage = usernameErrorSwitch(username.isValidUsername()))
         } else  if (email.isValidEmail() == 1 || email.isValidEmail() == 2) {
             uiState.value = uiState.value.copy(errorMessage = emailErrorSwitch(email.isValidEmail()))

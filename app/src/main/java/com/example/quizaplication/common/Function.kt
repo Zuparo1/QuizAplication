@@ -6,8 +6,9 @@ fun usernameErrorSwitch(errorId: Int): Int {
     when (errorId) {
         1 -> return R.string.username_blank_error
         2 -> return R.string.username_contains_space_error
-        3 -> return R.string.username_too_many_characters_error
-        4 -> return R.string.username_too_few_characters_error
+        3 -> return R.string.username_contains_newline_error
+        4 -> return R.string.username_too_many_characters_error
+        5 -> return R.string.username_too_few_characters_error
     }
     return R.string.unknown_username_error
 }
