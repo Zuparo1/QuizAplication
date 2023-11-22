@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
@@ -96,7 +97,7 @@ fun MultipleChoice(navController: NavController, documentPath : String, difficul
 
             ){
                 val question = quizQuestions[currentQuestionIndex]
-                Column(
+                LazyColumn(
 
                     modifier = Modifier
                         .padding(16.dp)
@@ -104,15 +105,17 @@ fun MultipleChoice(navController: NavController, documentPath : String, difficul
                         .fillMaxWidth()
                         .align(Alignment.CenterHorizontally),
                 ){
-                    Text(
-                        text = question.prompt,
-                        style = TextStyle(
-                            fontSize = 24.sp,
-                            color = Color.Black,
-                            fontWeight = FontWeight.Bold
-                        ),
-                        textAlign = TextAlign.Center,
-                    )
+                    item {
+                        Text(
+                            text = question.prompt,
+                            style = TextStyle(
+                                fontSize = 24.sp,
+                                color = Color.Black,
+                                fontWeight = FontWeight.Bold
+                            ),
+                            textAlign = TextAlign.Center,
+                        )
+                    }
                 }
                 question.options.forEach { option ->
                     Button(
