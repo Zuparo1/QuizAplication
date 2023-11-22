@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -20,12 +21,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.quizaplication.R
 import com.example.quizaplication.navigation.TopNavBar
 import com.google.firebase.auth.FirebaseAuth
 
@@ -59,7 +62,11 @@ fun SettingScreen(
         )
         if (changingUsername) {
             UsernameField(uiState.username, viewModel::onUsernameChange, fieldModifier)
-            Button(onClick = {
+            Button(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = colorResource(id = R.color.buttonColor)
+                ),
+                onClick = {
                 if (user != null) {
                     viewModel.onUsernameChangeClick(id = user.uid, completed = { changingUsername = false })
                 }
@@ -67,7 +74,11 @@ fun SettingScreen(
                 Text(text = "Change")
             }
         } else {
-            Button(onClick = { changingUsername = true }) {
+            Button(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = colorResource(id = R.color.buttonColor)
+                ),
+                onClick = { changingUsername = true }) {
                 Text(text = "Change username")
             }
         }
