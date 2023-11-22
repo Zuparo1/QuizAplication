@@ -40,10 +40,10 @@ class TrueOrFalseViewModel @Inject constructor(
         }
     }
 
-    fun savePointsToDatabase(id: String, subject: String, points: Int) {
+    fun savePointsToDatabase(id: String, subject: String, difficulty: String, points: Int) {
         viewModelScope.launch {
             try {
-                userDataService.updateScore(id, "TrueOrFalse", subject, points)
+                userDataService.updateScore(id, "TrueOrFalse", subject, difficulty, points)
             } catch (_: Exception) {  }
         }
     }

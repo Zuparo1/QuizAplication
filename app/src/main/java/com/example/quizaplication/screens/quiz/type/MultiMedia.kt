@@ -58,7 +58,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 
 @Composable
-fun MultiMedia(navController: NavController, documentPath : String) {
+fun MultiMedia(navController: NavController, documentPath : String, difficulty: String) {
     val pageTitle = "Quiz"
 
     var currentQuestionIndex by remember { mutableStateOf(0) }
@@ -221,7 +221,7 @@ fun MultiMedia(navController: NavController, documentPath : String) {
             }
         } else {
             if (user != null) {
-                viewModel.savePointsToDatabase(user.uid, documentPath, correctAnswers)
+                viewModel.savePointsToDatabase(user.uid, documentPath, "", correctAnswers)
             }
             Text(
                 text = "All questions answered. Quiz completed!",

@@ -70,20 +70,24 @@ fun SetUpNavGraph (navController : NavHostController){
 
         composable(route = Screen.MultipleChoice.route) { backStackEntry ->
             val documentPath = backStackEntry.arguments?.getString("documentPath") ?: ""
-            MultipleChoice(navController = navController, documentPath = documentPath)
+            val difficulty = backStackEntry.arguments?.getString("difficulty")?: ""
+            MultipleChoice(navController = navController, documentPath = documentPath, difficulty = difficulty)
         }
         composable(route = Screen.TextInput.route) { backStackEntry ->
             val documentPath = backStackEntry.arguments?.getString("documentPath") ?: ""
-            TextInput(navController = navController, documentPath = documentPath)
+            val difficulty = backStackEntry.arguments?.getString("difficulty")?: ""
+            TextInput(navController = navController, documentPath = documentPath, difficulty = difficulty)
         }
 
-        composable(route = Screen.TrueOrFalse.route) { navBackStackEntry ->
-            val documentPath = navBackStackEntry.arguments?.getString("documentPath") ?: ""
-            TrueOrFalse(navController = navController, documentPath = documentPath)
+        composable(route = Screen.TrueOrFalse.route) { backStackEntry ->
+            val documentPath = backStackEntry.arguments?.getString("documentPath") ?: ""
+            val difficulty = backStackEntry.arguments?.getString("difficulty")?: ""
+            TrueOrFalse(navController = navController, documentPath = documentPath, difficulty = difficulty)
         }
-        composable(route = Screen.MultiMedia.route) { navBackStackEntry ->
-            val documentPath = navBackStackEntry.arguments?.getString("documentPath") ?: ""
-            MultiMedia(navController = navController, documentPath = documentPath)
+        composable(route = Screen.MultiMedia.route) { backStackEntry ->
+            val documentPath = backStackEntry.arguments?.getString("documentPath") ?: ""
+            val difficulty = backStackEntry.arguments?.getString("difficulty")?: ""
+            MultiMedia(navController = navController, documentPath = documentPath, difficulty = difficulty)
         }
 
     }

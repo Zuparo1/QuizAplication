@@ -46,10 +46,10 @@ class MultiMediaViewModel @Inject constructor(
         }
     }
 
-    fun savePointsToDatabase(id: String, subject: String, points: Int) {
+    fun savePointsToDatabase(id: String, subject: String, difficulty: String, points: Int) {
         viewModelScope.launch {
             try {
-                userDataService.updateScore(id, "multiMedia", subject, points)
+                userDataService.updateScore(id, "multiMedia", subject, difficulty, points)
             } catch (_: Exception) {  }
         }
     }

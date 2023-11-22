@@ -36,18 +36,17 @@ class UserDataServiceImpl @Inject constructor(private val firestore: FirebaseFir
         firestore.collection("userData").document(id).update(updates).addOnCompleteListener { onResult(it.exception) }.await()
     }
 
-    override suspend fun updateScore(id: String, quizType: String, subject: String, points: Int) {
+    override suspend fun updateScore(id: String, quizType: String, subject: String, difficulty: String, points: Int) {
         var existingPoints = 0L;
         val userDataRef = firestore.collection("userData").document(id)
         userDataRef.get().addOnSuccessListener { document ->
-            existingPoints = document["${quizType.lowerCaseFirstChar()}.${subject.lowerCaseFirstChar()}"] as Long
+            existingPoints = document["${quizType.lowerCaseFirstChar()}.${subject.lowerCaseFirstChar()}${difficulty}"] as Long
         }.await()
-        Log.d("Points", "${existingPoints.toInt()}-${points}")
         if (existingPoints.toInt() >= points) {
             return
         }
         val updates = hashMapOf<String, Any>(
-            "${quizType.lowerCaseFirstChar()}.${subject.lowerCaseFirstChar()}" to points
+            "${quizType.lowerCaseFirstChar()}.${subject.lowerCaseFirstChar()}${difficulty}" to points
         )
         firestore.collection("userData").document(id).update(updates)
     }
@@ -57,10 +56,10 @@ class UserDataServiceImpl @Inject constructor(private val firestore: FirebaseFir
         val userDataRef = firestore.collection("userData").document(id)
 
         userDataRef.get().addOnSuccessListener { document ->
-            score.math = document["${type}.math"] as Long
-            score.history = document["${type}.history"] as Long
-            score.programing = document["${type}.programing"] as Long
-            score.science = document["${type}.science"] as Long
+            score.math = (document["${type}.mathBeginner"] as Long? ?: 0L) + (document["${type}.mathIntermediate"] as Long? ?: 0L) + (document["${type}.mathHard"] as Long? ?: 0L)
+            score.history = (document["${type}.historyBeginner"] as Long? ?: 0L) + (document["${type}.historyIntermediate"] as Long? ?: 0L) + (document["${type}.historyHard"] as Long? ?: 0L)
+            score.programing = (document["${type}.programingBeginner"] as Long? ?: 0L) + (document["${type}.programingIntermediate"] as Long? ?: 0L) + (document["${type}.programingHard"] as Long? ?: 0L)
+            score.science = (document["${type}.scienceBeginner"] as Long? ?: 0L) + (document["${type}.scienceIntermediate"] as Long? ?: 0L) + (document["${type}.scienceHard"] as Long? ?: 0L)
         }.await()
         return score
     }
@@ -73,7 +72,7 @@ class UserDataServiceImpl @Inject constructor(private val firestore: FirebaseFir
             val userScore = UserScore()
 
             userScore.username = document["userName"] as String? ?: ""
-            userScore.score = document["${type}.${subject}"] as Long? ?: 0L
+            userScore.score = (document["${type}.${subject}Beginner"] as Long? ?: 0L) + (document["${type}.${subject}Intermediate"] as Long? ?: 0L) + (document["${type}.${subject}Hard"] as Long? ?: 0L)
 
             userScores.add(userScore)
         }

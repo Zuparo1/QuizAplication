@@ -11,13 +11,13 @@ sealed class Screen(val route : String){
     object Register : Screen(route = "SignUpScreen")
 
     object SelectQuizType : Screen(route = "SelectQuizTypeScreen/{documentPath}")
-    object MultipleChoice : Screen(route = "MultipleChoice/{documentPath}")
-    object TrueOrFalse : Screen(route = "TrueOrFalse/{documentPath}")
-    object TextInput : Screen(route = "TextInput/{documentPath}")
-    object MultiMedia : Screen(route = "MultiMedia/{documentPath}")
-    object Route : Screen(route = "{collectionPath}/{documentPath}")
-    fun createRoute(collectionPath: String ,documentPath : String): String{
-        return "$collectionPath/$documentPath"
+    object MultipleChoice : Screen(route = "MultipleChoice/{documentPath}/{difficulty}")
+    object TrueOrFalse : Screen(route = "TrueOrFalse/{documentPath}/{difficulty}")
+    object TextInput : Screen(route = "TextInput/{documentPath}/{difficulty}")
+    object MultiMedia : Screen(route = "MultiMedia/{documentPath}/{difficulty}")
+    object Route : Screen(route = "{collectionPath}/{documentPath}/{difficulty}")
+    fun createRoute(collectionPath: String ,documentPath : String, difficulty: String): String{
+        return "$collectionPath/$documentPath/$difficulty"
     }
     fun createQuizRoute (documentPath: String): String {
         return "SelectQuizTypeScreen/$documentPath"
