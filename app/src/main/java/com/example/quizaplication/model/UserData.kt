@@ -7,7 +7,7 @@ import com.example.quizaplication.model.userDatas.TrueOrFalse
 
 data class UserData(
     var userName: String = "",
-    val multipleChoice: MultipleChoice = MultipleChoice(),
+    val multipleChoiceQuiz: MultipleChoice = MultipleChoice(),
     val multiMedia: MultiMedia = MultiMedia(),
     val textInput: TextInput = TextInput(),
     val trueOrFalse: TrueOrFalse = TrueOrFalse()
