@@ -42,7 +42,7 @@ import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 
 @Composable
-fun TrueOrFalse(navController: NavController, documentPath : String) {
+fun TrueOrFalse(navController: NavController, documentPath : String, difficulty: String) {
     val pageTitle = "True or False"
 
     var currentQuestionIndex by remember { mutableStateOf(0) }
@@ -58,7 +58,7 @@ fun TrueOrFalse(navController: NavController, documentPath : String) {
 
 
     LaunchedEffect(Unit){
-        viewModel.fetchQuizData("TrueOrFalse",documentPath)
+        viewModel.fetchQuizData("TrueOrFalse",documentPath + difficulty)
     }
 
     Column(
@@ -166,7 +166,11 @@ fun TrueOrFalse(navController: NavController, documentPath : String) {
         }
         else {
             if (user != null) {
-                viewModel.savePointsToDatabase(user.uid, documentPath, correctAnswers)
+                when (difficulty) {
+                    "Beginner" -> viewModel.savePointsToDatabase(user.uid, documentPath, difficulty, correctAnswers)
+                    "Intermediate" -> viewModel.savePointsToDatabase(user.uid, documentPath, difficulty, correctAnswers * 2)
+                    "Hard" -> viewModel.savePointsToDatabase(user.uid, documentPath, difficulty, correctAnswers * 3)
+                }
             }
             Text(
                 text = "All questions answered. Quiz completed!",

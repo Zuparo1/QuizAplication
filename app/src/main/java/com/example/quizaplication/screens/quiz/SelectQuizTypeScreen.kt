@@ -117,7 +117,7 @@ fun SelectQuizTypeScreen(navController: NavController
                 if (selectedQuizType != null && selectedDifficulty != null) {
                     err = false
                     navController.navigate(route =
-                    Screen.Route.createRoute(selectedQuizType!!.path, documentPath))
+                    Screen.Route.createRoute(selectedQuizType!!.path, documentPath, selectedDifficulty!!))
                 }
                 else{
                     err = true

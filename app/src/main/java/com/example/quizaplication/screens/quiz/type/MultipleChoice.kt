@@ -43,7 +43,7 @@ import com.example.quizaplication.screens.viewModel.MultipleChoiceViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun MultipleChoice(navController: NavController, documentPath : String) {
+fun MultipleChoice(navController: NavController, documentPath : String, difficulty: String) {
     val pageTitle = "Quiz"
 
     var currentQuestionIndex by remember { mutableStateOf(0) }
@@ -60,10 +60,10 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
     LaunchedEffect(Unit){
         //If statement necessarily because one case of misspelling in database
         if (documentPath == "Programming"){
-            viewModel.fetchQuizData("MultipleChoiceQuiz","Programing")
+            viewModel.fetchQuizData("MultipleChoiceQuiz","Programing${difficulty}")
         }
         else
-            viewModel.fetchQuizData("MultipleChoiceQuiz",documentPath)
+            viewModel.fetchQuizData("MultipleChoiceQuiz",documentPath + difficulty)
     }
 
     Column(
@@ -170,7 +170,11 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
         }
         else {
             if (user != null) {
-                viewModel.savePointsToDatabase(user.uid, documentPath, correctAnswers)
+                when (difficulty) {
+                    "Beginner" -> viewModel.savePointsToDatabase(user.uid, documentPath, difficulty, correctAnswers)
+                    "Intermediate" -> viewModel.savePointsToDatabase(user.uid, documentPath, difficulty, correctAnswers * 2)
+                    "Hard" -> viewModel.savePointsToDatabase(user.uid, documentPath, difficulty, correctAnswers * 3)
+                }
             }
             Text(
                 text = "All questions answered. Quiz completed!",
@@ -222,5 +226,5 @@ fun MultipleChoice(navController: NavController, documentPath : String) {
 fun MultiPreview() {
     lateinit var navController: NavHostController
     navController = rememberNavController()
-    MultipleChoice(navController,"History")
+    MultipleChoice(navController,"History", "Hard")
 }

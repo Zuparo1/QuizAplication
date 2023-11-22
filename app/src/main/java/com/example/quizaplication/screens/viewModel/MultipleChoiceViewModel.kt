@@ -45,10 +45,10 @@ class MultipleChoiceViewModel @Inject constructor(
         }
     }
 
-    fun savePointsToDatabase(id: String, subject: String, points: Int) {
+    fun savePointsToDatabase(id: String, subject: String, difficulty: String, points: Int) {
         viewModelScope.launch {
             try {
-                userDataService.updateScore(id, "MultipleChoiceQuiz", subject, points)
+                userDataService.updateScore(id, "MultipleChoiceQuiz", subject, difficulty, points)
             } catch (_: Exception) {  }
         }
     }

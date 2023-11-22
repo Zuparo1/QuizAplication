@@ -51,7 +51,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextInput(navController: NavController, documentPath : String) {
+fun TextInput(navController: NavController, documentPath : String, difficulty: String) {
     val pageTitle = "Quiz"
 
     var currentQuestionIndex by remember { mutableStateOf(0) }
@@ -67,7 +67,7 @@ fun TextInput(navController: NavController, documentPath : String) {
 
 
     LaunchedEffect(Unit){
-        viewModel.fetchQuizData("TextInput",documentPath)
+        viewModel.fetchQuizData("TextInput",documentPath + difficulty)
     }
 
     Column(
@@ -166,7 +166,11 @@ fun TextInput(navController: NavController, documentPath : String) {
         }
         else {
             if (user != null) {
-                viewModel.savePointsToDatabase(user.uid, documentPath, correctAnswers)
+                when (difficulty) {
+                    "Beginner" -> viewModel.savePointsToDatabase(user.uid, documentPath, difficulty, correctAnswers)
+                    "Intermediate" -> viewModel.savePointsToDatabase(user.uid, documentPath, difficulty, correctAnswers * 2)
+                    "Hard" -> viewModel.savePointsToDatabase(user.uid, documentPath, difficulty, correctAnswers * 3)
+                }
             }
             Text(
                 text = "All questions answered. Quiz completed!",

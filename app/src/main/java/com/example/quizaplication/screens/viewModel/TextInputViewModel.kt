@@ -41,10 +41,10 @@ class TextInputViewModel @Inject constructor(
         }
     }
 
-    fun savePointsToDatabase(id: String, subject: String, points: Int) {
+    fun savePointsToDatabase(id: String, subject: String, difficulty: String, points: Int) {
         viewModelScope.launch {
             try {
-                userDataService.updateScore(id, "TextInput", subject, points)
+                userDataService.updateScore(id, "TextInput", subject, difficulty, points)
             } catch (_: Exception) {  }
         }
     }

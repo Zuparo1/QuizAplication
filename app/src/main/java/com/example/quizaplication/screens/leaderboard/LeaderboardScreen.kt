@@ -32,7 +32,6 @@ fun LeaderboardScreen(
         QuizTypeData("Multiple Choice","multipleChoiceQuiz"),
         QuizTypeData("True or False","trueOrFalse"),
         QuizTypeData("Text Input","textInput"),
-        QuizTypeData("Mix","multipleChoiceQuiz"),
         QuizTypeData("Multimedia","multiMedia"),
     )
 
