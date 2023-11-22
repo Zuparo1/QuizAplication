@@ -97,79 +97,88 @@ fun MultipleChoice(navController: NavController, documentPath : String, difficul
 
             ){
                 val question = quizQuestions[currentQuestionIndex]
-                LazyColumn(
-
+                Column(
                     modifier = Modifier
                         .padding(16.dp)
                         .background(Color.LightGray)
                         .fillMaxWidth()
                         .align(Alignment.CenterHorizontally),
                 ){
+                    Text(
+                        text = question.prompt,
+                        style = TextStyle(
+                            fontSize = 24.sp,
+                            color = Color.Black,
+                            fontWeight = FontWeight.Bold
+                        ),
+                        textAlign = TextAlign.Center,
+                    )
+                }
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .background(Color.LightGray)
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally)
+                ){
                     item {
+                        question.options.forEach { option ->
+                            Button(
+                                onClick = {
+                                    selectedAnswer = option
+                                },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp)
+                                ,colors = ButtonDefaults.buttonColors(
+                                    containerColor =
+                                    if (selectedAnswer == option)
+                                        colorResource(id = R.color.buttonPressedColor)
+                                    else
+                                        colorResource(id = R.color.buttonColor)
+                                ),
+                            ) {
+                                Text(text = option)
+                            }
+                        }
+                    }
+                    item {
+                        Spacer(modifier = Modifier.weight(1f))
                         Text(
-                            text = question.prompt,
+                            text = "$correctAnswers correct questions out of ${quizQuestions.size} questions in total",
                             style = TextStyle(
-                                fontSize = 24.sp,
-                                color = Color.Black,
-                                fontWeight = FontWeight.Bold
+                                fontSize = 16.sp,
+                                color = Color.Black
                             ),
                             textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(16.dp)
                         )
-                    }
-                }
-                question.options.forEach { option ->
-                    Button(
-                        onClick = {
-                            selectedAnswer = option
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                            ,colors = ButtonDefaults.buttonColors(
-                            containerColor =
-                            if (selectedAnswer == option)
-                                colorResource(id = R.color.buttonPressedColor)
-                            else
-                                colorResource(id = R.color.buttonColor)
-                            ),
-                    ) {
-                        Text(text = option)
-                    }
-                }
-                Spacer(modifier = Modifier.weight(1f))
-                Text(
-                    text = "$correctAnswers correct questions out of ${quizQuestions.size} questions in total",
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        color = Color.Black
-                    ),
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(16.dp)
-                )
-                Button(
-                    onClick = {
-                        if (selectedAnswer != null) {
-                            val isCorrect = selectedAnswer == question.correct
-                            if (isCorrect) {
-                                correctAnswers++
-                                buttonBackgroundColor = Color.Green
-                            } else {
-                                buttonBackgroundColor = Color.Red
-                            }
-                            currentQuestionIndex++
-                            selectedAnswer = null
+                        Button(
+                            onClick = {
+                                if (selectedAnswer != null) {
+                                    val isCorrect = selectedAnswer == question.correct
+                                    if (isCorrect) {
+                                        correctAnswers++
+                                        buttonBackgroundColor = Color.Green
+                                    } else {
+                                        buttonBackgroundColor = Color.Red
+                                    }
+                                    currentQuestionIndex++
+                                    selectedAnswer = null
+                                }
+                            },
+                            modifier = Modifier
+                                .align(Alignment.CenterHorizontally)
+                                .padding(16.dp)
+                                .background(buttonBackgroundColor),
+                            colors =  ButtonDefaults.buttonColors(colorResource(id = R.color.buttonColor)),
+                            enabled = selectedAnswer != null
+                        ) {
+                            Text(text = "Submit answer and next question")
                         }
-                    },
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(16.dp)
-                        .background(buttonBackgroundColor),
-                    colors =  ButtonDefaults.buttonColors(colorResource(id = R.color.buttonColor)),
-                    enabled = selectedAnswer != null
-                ) {
-                    Text(text = "Submit answer and next question")
+                    }
+                    }
                 }
-            }
         }
         else {
             if (user != null) {
@@ -212,16 +221,6 @@ fun MultipleChoice(navController: NavController, documentPath : String, difficul
             }
         }
     }
-
-       //WORKING TEMPLATE
-        /*Column(modifier = Modifier.padding(16.dp)) {
-        quizQuestions.forEachIndexed { index, question ->
-            Text(text = "${index + 1}. OPTIONS: ${question.options.joinToString(", ")}")
-            Text(text = "${index + 1}. PROMPT: ${question.prompt}")
-            Text(text = "${index + 1}. CORRECT: ${question.correct}")
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-    }*/
 }
 
 @Preview
