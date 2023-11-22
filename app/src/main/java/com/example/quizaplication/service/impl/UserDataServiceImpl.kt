@@ -40,7 +40,7 @@ class UserDataServiceImpl @Inject constructor(private val firestore: FirebaseFir
         var existingPoints = 0L;
         val userDataRef = firestore.collection("userData").document(id)
         userDataRef.get().addOnSuccessListener { document ->
-            existingPoints = document["${quizType.lowerCaseFirstChar()}.${subject.lowerCaseFirstChar()}${difficulty}"] as Long
+            existingPoints = document["${quizType.lowerCaseFirstChar()}.${subject.lowerCaseFirstChar()}${difficulty}"] as Long? ?: 0L
         }.await()
         if (existingPoints.toInt() >= points) {
             return
