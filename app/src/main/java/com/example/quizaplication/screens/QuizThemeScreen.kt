@@ -39,7 +39,7 @@ fun QuizThemeScreen(
         .fillMaxSize()
         .padding(16.dp)
         //.background((colorResource(id = R.color.primaryColor))),
-        ,verticalArrangement = Arrangement.Center,
+        ,verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally) {
         TopNavBar(navController, pageTitle)
         Text(text = "Choose Category",
@@ -55,14 +55,7 @@ fun QuizThemeScreen(
                 QuizCategory(1, "History"),
                 QuizCategory(2, "Math"),
                 QuizCategory(3, "Science"),
-                QuizCategory(4, "Programming"),
-                QuizCategory(5, "English"),
-                QuizCategory(6, "Norwegian"),
-                QuizCategory(7, "Biology"),
-                QuizCategory(8, "Chemistry"),
-                QuizCategory(9, "Cyber Security"),
-                QuizCategory(10, "Mix"),
-                QuizCategory(11, "AI"),)
+                QuizCategory(4, "Programming"),)
             categories.forEach { category ->
                 item {
                     CategoryItem(
