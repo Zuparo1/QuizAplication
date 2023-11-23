@@ -67,12 +67,18 @@ class UserDataServiceImpl @Inject constructor(private val firestore: FirebaseFir
     override suspend fun getScores(type: String, subject: String): MutableList<UserScore> {
         val userScores = mutableListOf<UserScore>()
 
+        val subjectTemp: String = if (subject == "programming") {
+            "programing"
+        } else {
+            subject
+        }
+
         val userDataRef = firestore.collection("userData").get().await()
         for (document in userDataRef) {
             val userScore = UserScore()
 
             userScore.username = document["userName"] as String? ?: ""
-            userScore.score = (document["${type}.${subject}Beginner"] as Long? ?: 0L) + (document["${type}.${subject}Intermediate"] as Long? ?: 0L) + (document["${type}.${subject}Hard"] as Long? ?: 0L)
+            userScore.score = (document["${type}.${subjectTemp}Beginner"] as Long? ?: 0L) + (document["${type}.${subjectTemp}Intermediate"] as Long? ?: 0L) + (document["${type}.${subjectTemp}Hard"] as Long? ?: 0L)
 
             userScores.add(userScore)
         }
