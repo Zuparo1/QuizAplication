@@ -39,14 +39,22 @@ class UserDataServiceImpl @Inject constructor(private val firestore: FirebaseFir
     override suspend fun updateScore(id: String, quizType: String, subject: String, difficulty: String, points: Int) {
         var existingPoints = 0L;
         val userDataRef = firestore.collection("userData").document(id)
+
+        //Fixing writing mistake in database
+        val subjectTemp: String = if (subject == "programming") {
+            "programing"
+        } else {
+            subject
+        }
+
         userDataRef.get().addOnSuccessListener { document ->
-            existingPoints = document["${quizType.lowerCaseFirstChar()}.${subject.lowerCaseFirstChar()}${difficulty}"] as Long? ?: 0L
+            existingPoints = document["${quizType.lowerCaseFirstChar()}.${subjectTemp.lowerCaseFirstChar()}${difficulty}"] as Long? ?: 0L
         }.await()
         if (existingPoints.toInt() >= points) {
             return
         }
         val updates = hashMapOf<String, Any>(
-            "${quizType.lowerCaseFirstChar()}.${subject.lowerCaseFirstChar()}${difficulty}" to points
+            "${quizType.lowerCaseFirstChar()}.${subjectTemp.lowerCaseFirstChar()}${difficulty}" to points
         )
         firestore.collection("userData").document(id).update(updates)
     }
@@ -67,6 +75,7 @@ class UserDataServiceImpl @Inject constructor(private val firestore: FirebaseFir
     override suspend fun getScores(type: String, subject: String): MutableList<UserScore> {
         val userScores = mutableListOf<UserScore>()
 
+        //Fixing writing mistake in database
         val subjectTemp: String = if (subject == "programming") {
             "programing"
         } else {
