@@ -18,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.LaunchedEffect
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,7 +37,6 @@ import com.example.quizaplication.R
 import com.example.quizaplication.navigation.TopNavBar
 import com.example.quizaplication.screens.viewModel.TrueOrFalseViewModel
 import com.google.firebase.auth.FirebaseAuth
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 
 @Composable

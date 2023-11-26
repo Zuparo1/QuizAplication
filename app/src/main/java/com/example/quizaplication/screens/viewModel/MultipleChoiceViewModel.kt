@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.quizaplication.model.quizDataClass.MultipleChoiceData
 import com.example.quizaplication.service.UserDataService
 import com.google.firebase.firestore.ktx.firestore
