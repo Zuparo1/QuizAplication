@@ -2,7 +2,6 @@ package com.example.quizaplication.service.impl
 
 import com.example.quizaplication.model.User
 import com.example.quizaplication.service.AccountService
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -42,11 +41,6 @@ class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth) : A
         password: String,
         onResult: (Throwable?) -> Unit
     ) {
-        /* This might work but not sure
-        val credential = EmailAuthProvider.getCredential(email, password)
-        auth.currentUser!!.linkWithCredential(credential)
-            .addOnCompleteListener { onResult(it.exception) }.await()
-         */
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { onResult(it.exception) }.await()

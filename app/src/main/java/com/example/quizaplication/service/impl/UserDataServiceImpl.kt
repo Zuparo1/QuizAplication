@@ -1,6 +1,5 @@
 package com.example.quizaplication.service.impl
 
-import android.util.Log
 import com.example.quizaplication.common.ext.lowerCaseFirstChar
 import com.example.quizaplication.model.UserData
 import com.example.quizaplication.model.leaderboardData.UserScore

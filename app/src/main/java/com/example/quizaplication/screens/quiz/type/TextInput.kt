@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
@@ -22,10 +20,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.NavController
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,15 +31,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.quizaplication.R
 import com.example.quizaplication.navigation.TopNavBar
-import com.example.quizaplication.screens.viewModel.MultipleChoiceViewModel
 import com.example.quizaplication.screens.viewModel.TextInputViewModel
 import com.google.firebase.auth.FirebaseAuth
 
@@ -205,14 +196,4 @@ fun TextInput(navController: NavController, documentPath : String, difficulty: S
             }
         }
     }
-
-       //WORKING TEMPLATE
-        /*Column(modifier = Modifier.padding(16.dp)) {
-        quizQuestions.forEachIndexed { index, question ->
-            Text(text = "${index + 1}. OPTIONS: ${question.options.joinToString(", ")}")
-            Text(text = "${index + 1}. PROMPT: ${question.prompt}")
-            Text(text = "${index + 1}. CORRECT: ${question.correct}")
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-    }*/
 }
