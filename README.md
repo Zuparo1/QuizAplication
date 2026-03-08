@@ -3,10 +3,10 @@
 A native **Android** quiz app built with **Kotlin** and Gradle. Includes home, quiz flow, and simple auth screens.
 
 ## Features
-- 📱 Native Android app in **Kotlin**
-- 🧩 Multiple screens: home → quiz selection → quiz flow
-- 👤 Login/registration placeholders for progress saving
-- ⚙️ Gradle Kotlin DSL (`build.gradle.kts`)
+- Native Android app in **Kotlin**
+- Multiple screens: home → quiz selection → quiz flow
+- Login/registration placeholders for progress saving
+- Gradle Kotlin DSL (`build.gradle.kts`)
 
 ## Tech
 - Kotlin • AndroidX
@@ -16,7 +16,7 @@ A native **Android** quiz app built with **Kotlin** and Gradle. Includes home, q
 ## Getting Started
 1. Open in **Android Studio** (latest stable).
 2. Select a device/emulator.
-3. **Run** ▶️
+3. **Run** 
 
 ## How It Works
 - **Home** screen: start quiz, login, or register
